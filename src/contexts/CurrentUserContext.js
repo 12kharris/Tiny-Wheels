@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
-
-//import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { axiosRes } from "../api/axiosDefaults";
+import { axiosRes, axiosReq } from "../api/axiosDefaults";
+import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -19,6 +18,7 @@ export const CurrentUserProvider = ({ children }) => {
     try {
       const { data } = await axiosRes.get("dj-rest-auth/user/");
       setCurrentUser(data);
+      console.log("got user");
     } catch (err) {
       console.log(err);
     }
@@ -28,6 +28,57 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
+  // This was taken from Code Institute Moments walkthrough
+  useMemo(() => {
+    axiosReq.interceptors.request.use(
+      async (config) => {
+        if (shouldRefreshToken()) {
+          try {
+            await axios.post("/dj-rest-auth/token/refresh/");
+          } catch (err) {
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
+            removeTokenTimestamp();
+            return config;
+          }
+        }
+
+        return config;
+      },
+      (err) => {
+        return Promise.reject(err);
+      }
+    );
+
+    // use<AxiosResponse<any>>(onFulfilled?: ((value: AxiosResponse<any>) => AxiosResponse<any> | Promise<AxiosResponse<any>>) | undefined
+    //                          , onRejected?: (error: any) => any): number
+    axiosRes.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        if (err.response?.status === 401) {
+          try {
+            await axios.post("/dj-rest-auth/token/refresh/"); // try to refresh the token
+          } catch (refreshErr) {
+            // redirect to sign in page and logout the user
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
+            removeTokenTimestamp();
+          }
+          return axios(err.config);
+        }
+        return Promise.reject(err); // problem getting response
+      }
+    );
+  }, [history]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
@@ -35,4 +86,4 @@ export const CurrentUserProvider = ({ children }) => {
       </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
   );
-}
+};

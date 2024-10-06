@@ -2,7 +2,7 @@ import React from 'react'
 import { useCurrentUser } from '../contexts/CurrentUserContext'
 import { Nav, Navbar, NavbarBrand, NavLink } from 'react-bootstrap';
 
-const NavBar = () => {
+function NavBar() {
 
     const currentUser = useCurrentUser();
     const loggedIn = currentUser? true : false;
@@ -28,6 +28,9 @@ const NavBar = () => {
     );
     const loggedOutNav = (
         <>
+            <Nav.Link href='/signin'>
+                Sign In
+            </Nav.Link>
             <Nav.Link href='/signup'>
                 Sign Up
             </Nav.Link>
