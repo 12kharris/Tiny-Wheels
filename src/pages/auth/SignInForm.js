@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 const SignInForm = () => {
   const [signInData, setSignInData] = useState({
@@ -11,6 +12,8 @@ const SignInForm = () => {
   const { username, password } = signInData;
 
   const [errors, setErrors] = useState({});
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
 
   const handleChange = (event) => {
     setSignInData({
@@ -24,11 +27,17 @@ const SignInForm = () => {
     event.preventDefault();
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+      setCurrentUser(data.user)
       console.log(data);
+      console.log(currentUser);
     } catch (err) {
       setErrors(err.response?.data);
     }
   };
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <Form onSubmit={handleSubmit}>
