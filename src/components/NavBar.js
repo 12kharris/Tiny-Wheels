@@ -1,59 +1,40 @@
-import React from 'react'
-import { useCurrentUser } from '../contexts/CurrentUserContext'
-import { Nav, Navbar, NavbarBrand, NavLink } from 'react-bootstrap';
+import React from "react";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
+import { Nav, Navbar, NavbarBrand} from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 function NavBar() {
+  const currentUser = useCurrentUser();
+  //const loggedIn = currentUser? true : false;
 
-    const currentUser = useCurrentUser();
-    const loggedIn = currentUser? true : false;
-
-    const loggedInNav = (
-        <>
-            <Nav.Link href='/addpost'>
-                Add Post
-            </Nav.Link>
-            <Nav.Link href='/following'>
-                Following
-            </Nav.Link>
-            <Nav.Link href='/collection'>
-                Your Collection
-            </Nav.Link>
-            <Nav.Link href='/profile'>
-                Profile
-            </Nav.Link>
-            <Nav.Link href='/signout'>
-                Sign Out
-            </Nav.Link>
-        </>
-    );
-    const loggedOutNav = (
-        <>
-            <Nav.Link href='/signin'>
-                Sign In
-            </Nav.Link>
-            <Nav.Link href='/signup'>
-                Sign Up
-            </Nav.Link>
-        </>
-    )
-
+  const loggedInNav = (
+    <>
+      <NavLink to="/addpost">Add Post</NavLink>
+      <NavLink to="/following">Following</NavLink>
+      <NavLink to="/collection">Your Collection</NavLink>
+      <NavLink to="/profile">Profile</NavLink>
+      <NavLink to="/signout">Sign Out</NavLink>
+    </>
+  );
+  const loggedOutNav = (
+    <>
+      <NavLink to="/signin">Sign In</NavLink>
+      <NavLink to="/signup">Sign Up</NavLink>
+    </>
+  );
 
   return (
     <Navbar>
-        <Nav.Link href='/'>
-            <NavbarBrand>
-                Tiny Wheels
-            </NavbarBrand>
-        </Nav.Link>
-        <Nav.Link href='/new'>
-            New
-        </Nav.Link>
-        <Nav.Link href='/popular'>
-            Popular
-        </Nav.Link>
-        {loggedIn ? loggedInNav : loggedOutNav}
+      <NavLink to="/">
+        <NavbarBrand>Tiny Wheels</NavbarBrand>
+      </NavLink>
+      <Nav>
+        <NavLink to="/new">New</NavLink>
+        <NavLink to="/popular">Popular</NavLink>
+        {currentUser ? loggedInNav : loggedOutNav}
+      </Nav>
     </Navbar>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;
