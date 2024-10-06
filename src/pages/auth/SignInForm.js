@@ -20,7 +20,6 @@ const SignInForm = () => {
       ...signInData,
       [event.target.name]: event.target.value,
     });
-    //console.log(signInData);
   };
 
   const handleSubmit = async (event) => {
