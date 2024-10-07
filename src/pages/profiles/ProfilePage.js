@@ -8,8 +8,6 @@ const ProfilePage = () => {
     const [profile, setProfile] = useState({
         id: "", Owner: "", Created_at: "", Image: "", Name: "", is_owner: false
     });
-    const {id, owner, created_at, image, name, is_owner} = profile;
-    let tempProfile;
     
     useEffect(() => {
         const getProfile = async () => {
@@ -35,7 +33,6 @@ const ProfilePage = () => {
             }
         }
         getProfile();
-        console.log(image);
     },[currentUser, currentUser?.profile_id]);
 
 

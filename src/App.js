@@ -8,6 +8,8 @@ import SignUpForm from './pages/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import NotExists from './components/NotExists';
 import ProfilePage from './pages/profiles/ProfilePage';
+import PostsPage from './pages/posts/PostsPage';
+import FollowingPostsPage from './pages/posts/FollowingPostsPage';
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/profile" render={() => <ProfilePage/>}/>
+          <Route exact path="/new" render={() => <PostsPage/>} />
+          <Route exact path="/following" render={() => <FollowingPostsPage/>}/>
           <Route render={() => <NotExists/>} />
         </Switch> 
       </Container>
