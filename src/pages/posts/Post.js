@@ -1,6 +1,7 @@
 import React from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { PostDropdown } from "../../components/PostDropdown";
 
 function Post(props) {
   const {
@@ -23,13 +24,22 @@ function Post(props) {
   } = props;
 
   const currentUser = useCurrentUser();
+  const history = useHistory();
+
+  const handleEdit = () => {
+    history.push(`/posts/${id}/edit`);
+  }
+
+  const handleDelete = () => {}
 
   return (
-    <Link key={id} to="#">
-      <p>{Title}</p>
+    <div key={id} >
+      <span>{Title} {is_owner && <PostDropdown handleEdit={handleEdit} handleDelete={handleDelete} />}</span>
       <p>{Caption}</p>
       <p>{TagName}</p>
-      <img src={Image} />
+      <Link to={`/posts/${id}`}>
+        <img src={Image} />
+      </Link>
       {/* Add like/dislike button here */}
       <p>
         Likes: {Likes_count} Dislikes: {Dislikes_count}
@@ -37,7 +47,7 @@ function Post(props) {
       <p>{LikeType === "Liked" ? "Like" : "Dislike"}</p>
       {/* Add comment count here */}
       <hr></hr>
-    </Link>
+    </div>
   );
 }
 

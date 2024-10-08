@@ -20,7 +20,7 @@ const AddPost = () => {
   useEffect(() => {
     const getTags = async () => {
       try {
-        const { data } = await axiosRes.get("/tags/");
+        const { data } = await axiosReq.get("/tags/");
         setTags(data.results);
         setPostFormData({
             ...postFormData,
