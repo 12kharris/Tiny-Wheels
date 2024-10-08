@@ -1,10 +1,1 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-# This template has been deprecated
-
-Please use (and bookmark) this template instead: [CI Full Template](https://github.com/Code-Institute-Org/ci-full-template)
-
-Any projects built using the old template will continue to work. For all new projects, please use the **CI Full Template**, which will be updated more frequently.
-
----
-Happy coding!
+No tag on post creation kept being turned into a string which was failing the post request. To get around this, new tag of "No tag" has been made and logic around it so it won't display

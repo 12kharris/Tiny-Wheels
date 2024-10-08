@@ -28,6 +28,7 @@ function Post(props) {
     <Link key={id} to="#">
       <p>{Title}</p>
       <p>{Caption}</p>
+      <p>{TagName}</p>
       <img src={Image} />
       {/* Add like/dislike button here */}
       <p>

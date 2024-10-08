@@ -10,6 +10,7 @@ import NotExists from './components/NotExists';
 import ProfilePage from './pages/profiles/ProfilePage';
 import PostsPage from './pages/posts/PostsPage';
 import FollowingPostsPage from './pages/posts/FollowingPostsPage';
+import AddPost from './pages/posts/AddPost';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/profile" render={() => <ProfilePage/>}/>
           <Route exact path="/new" render={() => <PostsPage/>} />
           <Route exact path="/following" render={() => <FollowingPostsPage/>}/>
+          <Route exact path="/addpost" render={() => <AddPost />} />
           <Route render={() => <NotExists/>} />
         </Switch> 
       </Container>
