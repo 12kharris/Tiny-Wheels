@@ -2,6 +2,7 @@ import React from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { PostDropdown } from "../../components/PostDropdown";
+import ProfilePreview from "../profiles/ProfilePreview";
 
 function Post(props) {
   const {
@@ -14,6 +15,7 @@ function Post(props) {
     Likes_count,
     OwnerProfile,
     OwnerProfileID,
+    OwnerProfileImage,
     Tag,
     TagColour,
     TagName,
@@ -34,6 +36,9 @@ function Post(props) {
 
   return (
     <div key={id} >
+      <Link to={`profiles/${OwnerProfileID}`}>
+        <ProfilePreview imageURL={OwnerProfileImage} text={OwnerProfile} />
+      </Link>
       <span>{Title} {is_owner && <PostDropdown handleEdit={handleEdit} handleDelete={handleDelete} />}</span>
       <p>{Caption}</p>
       <p>{TagName}</p>

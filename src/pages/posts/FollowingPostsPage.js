@@ -23,7 +23,7 @@ const FollowingPostsPage = () => {
             }
         }
         getFollowedPosts();
-    }, [])
+    }, [currentUser])
 
   return (
     <div>

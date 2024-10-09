@@ -76,14 +76,13 @@ export function Profile(props) {
 
   return (
     <div>
-
       {is_owner && <p>Edit here</p>}
       <p>{OwnerUsername}</p>
       <p>{Name}</p>
       <Image src={ProfileImage} />
       {currentUser ? followed.length > 0 ? (
         <Button variant="danger" onClick={handleUnFollow}>Unfollow</Button>
-        ) : (
+        ) : is_owner ? (<></>) : (
         <Button variant="primary" onClick={handleFollow}>Follow</Button>
         ) : (<></>)}
       <p>Joined: {Created_at}</p>
