@@ -25,6 +25,7 @@ function App() {
         <Switch>
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/signin" render={() => <SignInForm />} />
+          <Route exact path="/profiles/:id" render={() => <ProfilePage fetch={true}/>}/>
           <Route exact path="/profile" render={() => <ProfilePage/>}/>
           <Route exact path="/new" render={() => <PostsPage/>} />
           <Route exact path="/following" render={() => <FollowingPostsPage/>}/>

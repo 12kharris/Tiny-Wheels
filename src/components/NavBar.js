@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { Nav, Navbar, NavbarBrand} from "react-bootstrap";
 import { NavLink } from "react-router-dom";
@@ -6,13 +6,18 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   const currentUser = useCurrentUser();
   //const loggedIn = currentUser? true : false;
+  const [profileID, setProfileID] = useState(null);
+
+  useEffect(()=> {
+    setProfileID(currentUser?.profile_id);
+  },[currentUser])
 
   const loggedInNav = (
     <>
       <NavLink to="/addpost">Add Post</NavLink>
       <NavLink to="/following">Following</NavLink>
       <NavLink to="/collection">Your Collection</NavLink>
-      <NavLink to="/profile">Profile</NavLink>
+      <NavLink to={`/profiles/${currentUser?.profile_id}`}>Profile</NavLink>
       <NavLink to="/signout">Sign Out</NavLink>
     </>
   );

@@ -1,55 +1,51 @@
-import React, { useEffect, useState } from 'react'
-import { useCurrentUser } from '../../contexts/CurrentUserContext'
-import { axiosReq } from '../../api/axiosDefaults';
-import { Image } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosReq } from "../../api/axiosDefaults";
+import { Image } from "react-bootstrap";
+import { useCurrentProfile } from "../../contexts/CurrentProfileContext";
+import Profile from "./Profile";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProfilePage = () => {
-    const currentUser = useCurrentUser();
-    const [profile, setProfile] = useState({
-        id: "", Owner: "", Created_at: "", Image: "", Name: "", is_owner: false
-    });
-    
-    useEffect(() => {
-        const getProfile = async () => {
-            try {
-                const {data} = await axiosReq.get(`/profiles/${currentUser?.profile_id}`);
-                console.log(data);
-                console.log(data.id);
-                setProfile(
-                    {
-                        ...profile,
-                        id: data.id,
-                        Owner: data.owner,
-                        Created_at: data.Created_at,
-                        Image: data.Image,
-                        Name: data.Name,
-                        is_owner: data.is_owner
-                    }
-                );
-                console.log(profile);
-            }
-            catch (err) {
-                console.log(err);
-            }
-        }
-        getProfile();
-    },[currentUser, currentUser?.profile_id]);
 
+    const {id} = useParams();
+  const currentUser = useCurrentUser();
+
+  const [profile, setProfile] = useState([])
+
+//   const [profile, setProfile] = useState({
+//     id: null,
+//     OwnerUsername: "",
+//     Created_at: "",
+//     ProfileImage: "",
+//     Name: "",
+//     is_owner: false,
+//   });
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+          const { data } = await axiosReq.get(`/profiles/${id}`);
+          setProfile(
+            [data]
+          );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProfile();
+  }, [currentUser, currentUser?.profile_id, id]);
 
   return (
     <div>
-        {profile.id ? (
-            <>  
-                <Image src={profile.Image} />
-                {currentUser?.username}
-                {profile.Name}
-            </>
-        ) : (
-            <div>nothing</div>
-        )}
+      {profile.length > 0 ? (
+        profile.map(p => (
+            <Profile key={p.id} {...p}/>
+        ))
+        ) : (<p>Nothing</p>)}
         
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;
