@@ -7,28 +7,16 @@ import Profile from "./Profile";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProfilePage = () => {
-
-    const {id} = useParams();
+  const { id } = useParams();
   const currentUser = useCurrentUser();
 
-  const [profile, setProfile] = useState([])
-
-//   const [profile, setProfile] = useState({
-//     id: null,
-//     OwnerUsername: "",
-//     Created_at: "",
-//     ProfileImage: "",
-//     Name: "",
-//     is_owner: false,
-//   });
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     const getProfile = async () => {
       try {
-          const { data } = await axiosReq.get(`/profiles/${id}`);
-          setProfile(
-            [data]
-          );
+        const { data } = await axiosReq.get(`/profiles/${id}`);
+        setProfile(data);
       } catch (err) {
         console.log(err);
       }
@@ -38,12 +26,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      {profile.length > 0 ? (
-        profile.map(p => (
-            <Profile key={p.id} {...p}/>
-        ))
-        ) : (<p>Nothing</p>)}
-        
+      {profile && <Profile {...profile} />}
     </div>
   );
 };
