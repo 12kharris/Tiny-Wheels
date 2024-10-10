@@ -44,7 +44,7 @@ function Post(props) {
         Post: id,
         IsLike: true,
       });
-      setPosts((prevPosts) => (
+      setPosts((prevPosts) =>
         prevPosts.map((post) => {
           return post.id === id
             ? {
@@ -55,7 +55,7 @@ function Post(props) {
               }
             : post;
         })
-      ));
+      );
     } catch (err) {
       console.log(err);
     }
@@ -64,19 +64,18 @@ function Post(props) {
   const handleUnLike = async () => {
     try {
       await axiosRes.delete(`/likes/${LikeDislike_id}`);
-        setPosts((prevPosts) => (
-          prevPosts.map((post) => {
-            return post.id === id
-              ? {
-                  ...post,
-                  Likes_count: post.Likes_count - 1,
-                  LikeDislike_id: null,
-                  LikeType: null,
-                }
-              : post;
-          })
-        ));
-      
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => {
+          return post.id === id
+            ? {
+                ...post,
+                Likes_count: post.Likes_count - 1,
+                LikeDislike_id: null,
+                LikeType: null,
+              }
+            : post;
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -88,7 +87,7 @@ function Post(props) {
         Post: id,
         IsLike: false,
       });
-      setPosts((prevPosts) => (
+      setPosts((prevPosts) =>
         prevPosts.map((post) => {
           return post.id === id
             ? {
@@ -99,7 +98,7 @@ function Post(props) {
               }
             : post;
         })
-      ));
+      );
     } catch (err) {
       console.log(err);
     }
@@ -108,7 +107,7 @@ function Post(props) {
   const handleUnDislike = async () => {
     try {
       await axiosRes.delete(`/likes/${LikeDislike_id}`).then(() => {
-        setPosts((prevPosts) => (
+        setPosts((prevPosts) =>
           prevPosts.map((post) => {
             return post.id === id
               ? {
@@ -119,7 +118,7 @@ function Post(props) {
                 }
               : post;
           })
-        ));
+        );
       });
     } catch (err) {
       console.log(err);
@@ -149,41 +148,81 @@ function Post(props) {
       </Link>
       {/* Add like/dislike button here */}
       <p>
-        {Likes_count}{" "}
         {LikeDislike_id && LikeType == "like" ? (
-          <span onClick={handleUnLike}>
-            <i className="fa-solid fa-thumbs-up"></i>
-          </span>
-        ) : is_owner ? (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>You can't like your own post</Tooltip>}
-          >
-            <i className="fa-regular fa-thumbs-up"></i>
-          </OverlayTrigger>
-        ) : (
-          <span onClick={handleLike}>
-            <i className="fa-regular fa-thumbs-up"></i>
-          </span>
-        )}{" "}
-        {Dislikes_count}
-        {"    "}
-        {LikeDislike_id && LikeType == "dislike" ? (
-          <span onClick={handleUnDislike}>
-            <i className="fa-solid fa-thumbs-down"></i>
-          </span>
-        ) : is_owner ? (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>You can't dislike your own post</Tooltip>}
-          >
+          <div>
+            {Likes_count}
+            {"   "}
+            <span onClick={handleUnLike}>
+              <i className="fa-solid fa-thumbs-up"></i>
+            </span>
+            {Dislikes_count}
+            {"    "}
             <i className="fa-regular fa-thumbs-down"></i>
-          </OverlayTrigger>
+          </div>
+        ) : LikeDislike_id && LikeType == "dislike" ? (
+          <div>
+            {Likes_count}
+            {"   "}
+            <i className="fa-regular fa-thumbs-up"></i>
+            {Dislikes_count}
+            {"    "}
+            <span onClick={handleUnDislike}>
+              <i className="fa-solid fa-thumbs-down"></i>
+            </span>
+          </div>
+        ) : is_owner ? (
+          <div>
+            {Likes_count}
+            {"   "}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>You can't like your own post</Tooltip>}
+            >
+              <i className="fa-regular fa-thumbs-up"></i>
+            </OverlayTrigger>
+            {Dislikes_count}
+            {"    "}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>You can't dislike your own post</Tooltip>}
+            >
+              <i className="fa-regular fa-thumbs-down"></i>
+            </OverlayTrigger>
+          </div>
+        ) : currentUser ? (
+          <div>
+            {Likes_count}
+            {"   "}
+            <span onClick={handleLike}>
+              <i className="fa-regular fa-thumbs-up"></i>
+            </span>
+            {Dislikes_count}
+            {"    "}
+            <span onClick={handleDislike}>
+              <i className="fa-regular fa-thumbs-down"></i>
+            </span>
+          </div>
         ) : (
-          <span onClick={handleDislike}>
-            <i className="fa-regular fa-thumbs-down"></i>
-          </span>
+          <div>
+            {Likes_count}
+            {"   "}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Log in to like a post</Tooltip>}
+            >
+              <i className="fa-regular fa-thumbs-up"></i>
+            </OverlayTrigger>
+            {Dislikes_count}
+            {"    "}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Log in to dislike a post</Tooltip>}
+            >
+              <i className="fa-regular fa-thumbs-down"></i>
+            </OverlayTrigger>
+          </div>
         )}
+      
       </p>
       {/* Add comment count here */}
       <hr></hr>
