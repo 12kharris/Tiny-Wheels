@@ -21,6 +21,10 @@ const AddCollectionItem = () => {
         try {
             const {data} = await axiosRes.get("/series/");
             setSeries(data.results);
+            setCollectionItemFormData({
+                ...collectionItemFormData,
+                Series: data.results[0].id
+            })
         }
         catch (err) {
             console.log(err);
@@ -64,7 +68,7 @@ const AddCollectionItem = () => {
 
     useEffect(() => {
         getSeries();
-    },[])
+    },[id, history])
 
   return (
     <div>

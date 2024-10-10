@@ -3,7 +3,7 @@ import { Button, Image } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Post from "../posts/Post";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 export function Profile(props) {
   const {
@@ -15,6 +15,7 @@ export function Profile(props) {
     Name,
     is_owner,
     is_followed,
+    collection_id,
   } = props;
 
   const {id} = useParams();
@@ -89,6 +90,7 @@ export function Profile(props) {
         <Button variant="primary" onClick={handleFollow}>Follow</Button>
         ) : (<></>)}
       <p>Joined: {Created_at}</p>
+      <Link to={`/collection/${collection_id}`}>See collection</Link>
 
       <div>
         <p>{OwnerUsername}'s posts</p>
