@@ -11,7 +11,7 @@ const AddPost = () => {
   const [postFormData, setPostFormData] = useState({
     Title: "",
     Caption: "",
-    Image: null,
+    Image: "",
     Tag: null,
   });
   const { title, caption, image, tag } = postFormData;
@@ -46,7 +46,7 @@ const AddPost = () => {
       URL.revokeObjectURL(image);
       setPostFormData({
         ...postFormData,
-        image: URL.createObjectURL(event.target.files[0]),
+        Image: URL.createObjectURL(event.target.files[0]),
       });
     }
   };
