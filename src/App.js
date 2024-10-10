@@ -14,6 +14,7 @@ import AddPost from './pages/posts/AddPost';
 import PostDetail from './pages/posts/PostDetail';
 import PostEdit from './pages/posts/PostEdit';
 import CollectionPage from './pages/collection/CollectionPage';
+import AddCollectionItem from './pages/collection/AddCollectionItem';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
           <Route exact path="/posts/:id" render={() => <PostDetail />} />
           <Route exact path="/collection/:id" render={() => <CollectionPage />} />
+          <Route exact path="/collection/:id/add" render={() => <AddCollectionItem />} />
           <Route render={() => <NotExists/>} />
         </Switch> 
       </Container>
