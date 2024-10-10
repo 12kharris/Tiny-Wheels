@@ -30,7 +30,7 @@ function NavBar() {
     <>
       <NavLink to="/addpost">Add Post</NavLink>
       <NavLink to="/following">Following</NavLink>
-      <NavLink to="/collection">Your Collection</NavLink>
+      <NavLink to={`/collection/${currentUser?.collection_id}`}>Your Collection</NavLink>
       <NavLink to={`/profiles/${currentUser?.profile_id}`}>Profile</NavLink>
       <NavLink to="/" onClick={handleSignOut}>Sign Out</NavLink>
     </>

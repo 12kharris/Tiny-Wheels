@@ -13,6 +13,7 @@ import FollowingPostsPage from './pages/posts/FollowingPostsPage';
 import AddPost from './pages/posts/AddPost';
 import PostDetail from './pages/posts/PostDetail';
 import PostEdit from './pages/posts/PostEdit';
+import CollectionPage from './pages/collection/CollectionPage';
 
 function App() {
 
@@ -25,13 +26,13 @@ function App() {
         <Switch>
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/signin" render={() => <SignInForm />} />
-          <Route exact path="/profiles/:id" render={() => <ProfilePage fetch={true}/>}/>
-          <Route exact path="/profile" render={() => <ProfilePage/>}/>
+          <Route exact path="/profiles/:id" render={() => <ProfilePage/>}/>
           <Route exact path="/new" render={() => <PostsPage/>} />
           <Route exact path="/following" render={() => <FollowingPostsPage/>}/>
           <Route exact path="/addpost" render={() => <AddPost />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
           <Route exact path="/posts/:id" render={() => <PostDetail />} />
+          <Route exact path="/collection/:id" render={() => <CollectionPage />} />
           <Route render={() => <NotExists/>} />
         </Switch> 
       </Container>
