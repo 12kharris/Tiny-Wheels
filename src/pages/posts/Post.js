@@ -147,7 +147,7 @@ function Post(props) {
         <img src={Image} />
       </Link>
       {/* Add like/dislike button here */}
-      <p>
+      <div>
         {LikeDislike_id && LikeType == "like" ? (
           <div>
             {Likes_count}
@@ -223,7 +223,7 @@ function Post(props) {
           </div>
         )}
       
-      </p>
+      </div>
       {/* Add comment count here */}
       <hr></hr>
     </div>

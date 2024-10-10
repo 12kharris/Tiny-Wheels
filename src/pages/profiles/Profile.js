@@ -3,7 +3,7 @@ import { Button, Image } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Post from "../posts/Post";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 export function Profile(props) {
   const {
@@ -21,22 +21,25 @@ export function Profile(props) {
   const currentUser = useCurrentUser();
   const [posts, setPosts] = useState([]);
   const [followed, setFollowed] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
+    fetchPosts();
+    fetchFollowed();
+  }, [currentUser, id, history, OwnerUsername]);
+
+  const fetchPosts = async () => {
+    try {
+      if (OwnerUsername) {
         const { data } = await axiosReq.get(
           `/posts/?Profile__User__username=${OwnerUsername}&Profile__FollowedProfile__FollowingProfile=`
         );
         setPosts(data.results);
-      } catch (err) {
-        console.log(err);
       }
-    };
-    
-    fetchPosts();
-    fetchFollowed();
-  }, [currentUser, id]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchFollowed = async () => {
     try {
@@ -93,7 +96,7 @@ export function Profile(props) {
         {posts?.length > 0 ? (
           posts.map((post) => <Post key={post.id} {...post} />)
         ) : (
-          <p>No Results</p>
+          <p>No posts yet</p>
         )}
       </div>
     </div>
