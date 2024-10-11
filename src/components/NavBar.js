@@ -4,6 +4,7 @@ import { Nav, Navbar, NavbarBrand} from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { axiosReq } from "../api/axiosDefaults";
 import { removeTokenTimestamp } from "../utils/utils";
+import styles from "../styles/NavBar.module.css";
 
 function NavBar() {
   const currentUser = useCurrentUser();
@@ -28,28 +29,28 @@ function NavBar() {
 
   const loggedInNav = (
     <>
-      <NavLink to="/addpost">Add Post</NavLink>
-      <NavLink to="/following">Following</NavLink>
-      <NavLink to={`/collection/${currentUser?.collection_id}`}>Your Collection</NavLink>
-      <NavLink to={`/profiles/${currentUser?.profile_id}`}>Profile</NavLink>
+      <NavLink to="/addpost" activeClassName={styles.active}>Add Post</NavLink>
+      <NavLink to="/following" activeClassName={styles.active}>Following</NavLink>
+      <NavLink to={`/collection/${currentUser?.collection_id}`} activeClassName={styles.active}>Your Collection</NavLink>
+      <NavLink to={`/profiles/${currentUser?.profile_id}`} activeClassName={styles.active}>Profile</NavLink>
       <NavLink to="/" onClick={handleSignOut}>Sign Out</NavLink>
     </>
   );
   const loggedOutNav = (
     <>
-      <NavLink to="/signin">Sign In</NavLink>
-      <NavLink to="/signup">Sign Up</NavLink>
+      <NavLink to="/signin" activeClassName={styles.active}>Sign In</NavLink>
+      <NavLink to="/signup" activeClassName={styles.active}>Sign Up</NavLink>
     </>
   );
 
   return (
-    <Navbar>
+    <Navbar expand="md" fixed="top" variant="dark" className={styles.nav}>
       <NavLink to="/">
-        <NavbarBrand>Tiny Wheels</NavbarBrand>
+        <NavbarBrand><span id="logo">Tiny Wheels</span></NavbarBrand>
       </NavLink>
-      <Nav>
-        <NavLink to="/new">New</NavLink>
-        <NavLink to="/popular">Popular</NavLink>
+      <Nav className={styles.navlinks}>
+        <NavLink to="/new" activeClassName={styles.active}>New</NavLink>
+        <NavLink to="/popular" activeClassName={styles.active}>Popular</NavLink>
         {currentUser ? loggedInNav : loggedOutNav}
       </Nav>
     </Navbar>

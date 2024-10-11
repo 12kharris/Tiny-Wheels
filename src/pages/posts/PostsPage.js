@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 import Post from "./Post";
-import { Form } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
+import styles from "../../styles/PostPage.module.css";
 
 const PostsPage = () => {
   const currentUser = useCurrentUser();
@@ -29,7 +30,9 @@ const PostsPage = () => {
   }, [searchTerm]);
 
   return (
-    <div>
+    <>
+      <Col md={1} lg={2}></Col>
+      <Col className={styles.posts}>
       <Form>
         <Form.Control
           type="text"
@@ -48,7 +51,9 @@ const PostsPage = () => {
       ) : (
         <p>No Results</p>
       )}
-    </div>
+      </Col>
+      <Col md={1} lg={2}></Col>
+    </>
   );
 };
 

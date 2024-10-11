@@ -1,0 +1,11 @@
+
+.container {
+    max-width: 100%;
+}
+
+.content {
+    padding-top: 70px;
+    background-color: #292928;
+    color: #fafafa;
+    min-height: 100vh;
+}

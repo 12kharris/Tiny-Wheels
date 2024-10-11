@@ -1,0 +1,28 @@
+.nav {
+    background-color: black;
+    color: #fafafa;
+}
+
+.NavLink {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.navlinks {
+    width: 90%;
+    justify-content: space-evenly;
+    font-size: 20px;
+}
+
+.navlinks > a {
+    color: #fafafa;
+}
+
+#logo {
+    color: #fafafa;
+}
+
+.active {
+    text-decoration: underline;
+    font-weight: bolder;
+}
