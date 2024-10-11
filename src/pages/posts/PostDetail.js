@@ -10,7 +10,6 @@ const PostDetail = () => {
     const currentUser = useCurrentUser();
     const { id } = useParams();
     const [post, setPost] = useState({});
-    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         const getPostData = async () => {
@@ -24,33 +23,12 @@ const PostDetail = () => {
                 }
             }
         }
-        const getComments = async() => {
-            if (id) {
-                try {
-                    const {data} = await axiosRes.get(`/comments/?Post=${id}`);
-                    setComments(data.results);
-                }
-                catch (err) {
-                    console.log(err);
-                }
-            }
-        }
         getPostData();
-        getComments();
     },[id]);
 
   return (
     <Col>
-        <Post {...post} />
-        <Container>
-            {comments.length > 0 ? (
-                comments.map(c => (
-                    <Comment key={c.id} {...c}/>
-                ))
-            ) : (
-                <p>No Comments</p>
-            )}
-        </Container>
+        <Post {...post} showComments={true}/>   
     </Col>
   )
 }

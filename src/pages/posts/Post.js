@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   Col,
+  Container,
   Form,
   Media,
   OverlayTrigger,
@@ -15,6 +16,7 @@ import {
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/Post.module.css";
+import Comment from "../comments/Comment";
 
 function Post(props) {
   const {
@@ -38,10 +40,12 @@ function Post(props) {
     id,
     is_owner,
     setPosts,
+    showComments,
   } = props;
 
   const currentUser = useCurrentUser();
   const history = useHistory();
+  const [comments, setComments] = useState([]);
   const [addComment, setAddComment] = useState(false);
   const [commentFormData, setCommentFormData] = useState({
     Post: null,
@@ -50,12 +54,24 @@ function Post(props) {
 
   useEffect(() => {
     if (id) {
+      getComments();
       setCommentFormData({
         Post: id,
         Content: "",
       });
     }
   }, [id]);
+
+  const getComments = async () => {
+    if (id) {
+      try {
+        const { data } = await axiosRes.get(`/comments/?Post=${id}`);
+        setComments(data.results);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   const handleEdit = () => {
     history.push(`/posts/${id}/edit`);
@@ -160,17 +176,17 @@ function Post(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("Post", commentFormData.Post)
-    formData.append("Content", commentFormData.Content)
+    formData.append("Post", commentFormData.Post);
+    formData.append("Content", commentFormData.Content);
 
     try {
-      const {data} = await axiosReq.post("/comments/", formData);
-      history.push(`/posts/${id}`);
-    }
-    catch (err) {
+      const { data } = await axiosReq.post("/comments/", formData);
+      setAddComment(false);
+      setComments((prevComments) => [...prevComments, data]);
+    } catch (err) {
       console.log(err.response.data);
     }
-  }
+  };
 
   return (
     <Card key={id} className={styles.post}>
@@ -284,20 +300,20 @@ function Post(props) {
             <Link to={`/posts/${id}`}>
               <i className="fa-regular fa-comment"></i> {Comments_count}
             </Link>
-            {currentUser?.pk && !addComment && <Button
+            {currentUser?.pk && !addComment && showComments && (
+              <Button
                 onClick={() => {
                   setAddComment(!addComment);
                 }}
               >
                 Add comment
-              </Button>}
+              </Button>
+            )}
           </Col>
         </Row>
       </Card.Footer>
       {addComment && (
-        <Form
-          onSubmit={handleSubmit}
-        >
+        <Form onSubmit={handleSubmit}>
           <Form.Control
             type="text"
             value={id}
@@ -317,14 +333,33 @@ function Post(props) {
                 ></Form.Control>
               </Col>
               <Col>
-                <Button variant="success" type="submit">Add</Button>
+                <Button variant="success" type="submit">
+                  Add
+                </Button>
               </Col>
               <Col>
-                <Button variant="danger" onClick={() => {setAddComment(false)}}>Cancel</Button>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    setAddComment(false);
+                  }}
+                >
+                  Cancel
+                </Button>
               </Col>
             </Row>
           </Form.Group>
         </Form>
+      )}
+      {showComments && (
+        <Container>
+          
+          {comments.length > 0 ? (
+            comments.map((c) => <Comment key={c.id} {...c} getComments={getComments}/>)
+          ) : (
+            <p>No Comments</p>
+          )}
+        </Container>
       )}
       <hr></hr>
     </Card>

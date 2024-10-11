@@ -17,6 +17,7 @@ const Comment = (props) => {
     is_owner,
     Created_ago,
     Content,
+    getComments,
   } = props;
 
   const currentUser = useCurrentUser();
@@ -64,13 +65,20 @@ const Comment = (props) => {
         .then(() => {
           setEdit(false);
         })
-        .then(window.location.reload()); //force reload as component isn't re-rendering with new data
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err.response?.data);
+      console.log(err);
     }
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      await axiosReq.delete(`/comments/${id}`).then(() => {getComments()})
+    }
+    catch (err) {
+      console.log(err.response.data);
+    }
+  };
 
   return (
     <Media>
@@ -111,7 +119,7 @@ const Comment = (props) => {
         </Media.Body>
       ) : (
         <Media.Body>
-          <p>{Content}</p>
+          <p>{commentData.Content}</p>
           {currentUser?.username == Username && (
             <OptionsDropdown
               handleEdit={() => {

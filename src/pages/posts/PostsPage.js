@@ -43,7 +43,7 @@ const PostsPage = () => {
       {posts?.length > 0 ? (
         posts.map((post) => (
           //make this a Post component
-          <Post key={post.id} {...post} setPosts={setPosts} />
+          <Post key={post.id} {...post} setPosts={setPosts} showComments={false}/>
         ))
       ) : (
         <p>No Results</p>
