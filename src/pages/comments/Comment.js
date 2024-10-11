@@ -30,7 +30,6 @@ const Comment = (props) => {
 
   useEffect(() => {
     const getCommentData = async () => {
-      console.log("got comment data");
       if (!edit) {
         try {
           const { data } = await axiosRes.get(`/comments/${id}/`);
@@ -65,7 +64,7 @@ const Comment = (props) => {
         .then(() => {
           setEdit(false);
         })
-        .then(window.location.reload());
+        .then(window.location.reload()); //force reload as component isn't re-rendering with new data
     } catch (err) {
       console.log(err.response.data);
     }

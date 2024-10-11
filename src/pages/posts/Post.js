@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { OptionsDropdown } from "../../components/OptionsDropdown";
@@ -7,12 +7,13 @@ import {
   Button,
   Card,
   Col,
+  Form,
   Media,
   OverlayTrigger,
   Row,
   Tooltip,
 } from "react-bootstrap";
-import { axiosRes } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/Post.module.css";
 
 function Post(props) {
@@ -41,6 +42,20 @@ function Post(props) {
 
   const currentUser = useCurrentUser();
   const history = useHistory();
+  const [addComment, setAddComment] = useState(false);
+  const [commentFormData, setCommentFormData] = useState({
+    Post: null,
+    Content: "",
+  });
+
+  useEffect(() => {
+    if (id) {
+      setCommentFormData({
+        Post: id,
+        Content: "",
+      });
+    }
+  }, [id]);
 
   const handleEdit = () => {
     history.push(`/posts/${id}/edit`);
@@ -134,6 +149,28 @@ function Post(props) {
       console.log(err);
     }
   };
+
+  const handleCommentChange = (event) => {
+    setCommentFormData({
+      ...commentFormData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("Post", commentFormData.Post)
+    formData.append("Content", commentFormData.Content)
+
+    try {
+      const {data} = await axiosReq.post("/comments/", formData);
+      history.push(`/posts/${id}`);
+    }
+    catch (err) {
+      console.log(err.response.data);
+    }
+  }
 
   return (
     <Card key={id} className={styles.post}>
@@ -245,13 +282,50 @@ function Post(props) {
           )}
           <Col>
             <Link to={`/posts/${id}`}>
-              <i class="fa-regular fa-comment"></i> {Comments_count}
+              <i className="fa-regular fa-comment"></i> {Comments_count}
             </Link>
+            {currentUser?.pk && !addComment && <Button
+                onClick={() => {
+                  setAddComment(!addComment);
+                }}
+              >
+                Add comment
+              </Button>}
           </Col>
         </Row>
       </Card.Footer>
-
-      {/* Add comment count here */}
+      {addComment && (
+        <Form
+          onSubmit={handleSubmit}
+        >
+          <Form.Control
+            type="text"
+            value={id}
+            name="Post"
+            hidden
+            readOnly
+          ></Form.Control>
+          <Form.Group>
+            <Row>
+              <Col>
+                <Form.Control
+                  type="text"
+                  value={commentFormData.Content}
+                  name="Content"
+                  placeholder="Type a comment..."
+                  onChange={handleCommentChange}
+                ></Form.Control>
+              </Col>
+              <Col>
+                <Button variant="success" type="submit">Add</Button>
+              </Col>
+              <Col>
+                <Button variant="danger" onClick={() => {setAddComment(false)}}>Cancel</Button>
+              </Col>
+            </Row>
+          </Form.Group>
+        </Form>
+      )}
       <hr></hr>
     </Card>
   );
