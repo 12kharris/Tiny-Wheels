@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { PostDropdown } from "../../components/PostDropdown";
+import { OptionsDropdown } from "../../components/OptionsDropdown";
 import ProfilePreview from "../profiles/ProfilePreview";
 import {
   Button,
@@ -147,7 +147,7 @@ function Post(props) {
           </Link>
           <div>
             {is_owner && (
-              <PostDropdown
+              <OptionsDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />

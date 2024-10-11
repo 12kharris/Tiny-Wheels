@@ -1,5 +1,5 @@
 import './App.css';
-import { Container } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import "./api/axiosDefaults";
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import { useCurrentUser } from "./contexts/CurrentUserContext";
@@ -25,20 +25,22 @@ function App() {
     <div className="App">
       <Container>
         <NavBar />
-        <Switch>
-          <Route exact path="/signup" render={() => <SignUpForm />} />
-          <Route exact path="/signin" render={() => <SignInForm />} />
-          <Route exact path="/profiles/:id" render={() => <ProfilePage/>}/>
-          <Route exact path="/new" render={() => <PostsPage/>} />
-          <Route exact path="/following" render={() => <FollowingPostsPage/>}/>
-          <Route exact path="/addpost" render={() => <AddPost />} />
-          <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
-          <Route exact path="/posts/:id" render={() => <PostDetail />} />
-          <Route exact path="/collection/:id" render={() => <CollectionPage />} />
-          <Route exact path="/collection/:id/add" render={() => <AddCollectionItem />} />
-          <Route exact path="/collection/item/:id" render={() => <EditCollectionItem />}/>
-          <Route render={() => <NotExists/>} />
-        </Switch> 
+        <Row>
+          <Switch>
+            <Route exact path="/signup" render={() => <SignUpForm />} />
+            <Route exact path="/signin" render={() => <SignInForm />} />
+            <Route exact path="/profiles/:id" render={() => <ProfilePage/>}/>
+            <Route exact path="/new" render={() => <PostsPage/>} />
+            <Route exact path="/following" render={() => <FollowingPostsPage/>}/>
+            <Route exact path="/addpost" render={() => <AddPost />} />
+            <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
+            <Route exact path="/posts/:id" render={() => <PostDetail />} />
+            <Route exact path="/collection/:id" render={() => <CollectionPage />} />
+            <Route exact path="/collection/:id/add" render={() => <AddCollectionItem />} />
+            <Route exact path="/collection/item/:id" render={() => <EditCollectionItem />}/>
+            <Route render={() => <NotExists/>} />
+          </Switch> 
+        </Row>
       </Container>
     </div>
   );
