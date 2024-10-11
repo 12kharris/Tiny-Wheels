@@ -3,8 +3,17 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { PostDropdown } from "../../components/PostDropdown";
 import ProfilePreview from "../profiles/ProfilePreview";
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Media,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from "react-bootstrap";
 import { axiosRes } from "../../api/axiosDefaults";
+import styles from "../../styles/Post.module.css";
 
 function Post(props) {
   const {
@@ -15,6 +24,7 @@ function Post(props) {
     LikeDislike_id,
     LikeType,
     Likes_count,
+    Comments_count,
     OwnerProfile,
     OwnerProfileID,
     OwnerProfileImage,
@@ -126,107 +136,124 @@ function Post(props) {
   };
 
   return (
-    <div key={id}>
-      <Link to={`profiles/${OwnerProfileID}`}>
-        <ProfilePreview
-          imageURL={OwnerProfileImage}
-          text={OwnerProfile?.Length > 0 ? OwnerProfile : OwnerUsername}
-        />
-      </Link>
-      <div>
-        <span>
-          {Title}{" "}
-          {is_owner && (
-            <PostDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
-          )}
-        </span>
-      </div>
-      <p>{Caption}</p>
+    <Card key={id} className={styles.post}>
+      <Card.Header>
+        <Media>
+          <Link to={`profiles/${OwnerProfileID}`}>
+            <ProfilePreview
+              imageURL={OwnerProfileImage}
+              text={OwnerProfile?.Length > 0 ? OwnerProfile : OwnerUsername}
+            />
+          </Link>
+          <div>
+            {is_owner && (
+              <PostDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
+          </div>
+        </Media>
+      </Card.Header>
+      <Card.Body>
+        <Card.Title>{Title}</Card.Title>
+        <Card.Text>{Caption}</Card.Text>
+        <div className={styles.img_holder}>
+          <Link to={`/posts/${id}`}>
+            <Card.Img src={Image} className={styles.img}></Card.Img>
+          </Link>
+        </div>
+      </Card.Body>
+
       <p>{TagName}</p>
-      <Link to={`/posts/${id}`}>
-        <img src={Image} />
-      </Link>
-      {/* Add like/dislike button here */}
-      <div>
-        {LikeDislike_id && LikeType == "like" ? (
-          <div>
-            {Likes_count}
-            {"   "}
-            <span onClick={handleUnLike}>
-              <i className="fa-solid fa-thumbs-up"></i>
-            </span>
-            {Dislikes_count}
-            {"    "}
-            <i className="fa-regular fa-thumbs-down"></i>
-          </div>
-        ) : LikeDislike_id && LikeType == "dislike" ? (
-          <div>
-            {Likes_count}
-            {"   "}
-            <i className="fa-regular fa-thumbs-up"></i>
-            {Dislikes_count}
-            {"    "}
-            <span onClick={handleUnDislike}>
-              <i className="fa-solid fa-thumbs-down"></i>
-            </span>
-          </div>
-        ) : is_owner ? (
-          <div>
-            {Likes_count}
-            {"   "}
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>You can't like your own post</Tooltip>}
-            >
-              <i className="fa-regular fa-thumbs-up"></i>
-            </OverlayTrigger>
-            {Dislikes_count}
-            {"    "}
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>You can't dislike your own post</Tooltip>}
-            >
+
+      <Card.Footer>
+        <Row>
+          {LikeDislike_id && LikeType == "like" ? (
+            <Col>
+              {Likes_count}
+              {"   "}
+              <span onClick={handleUnLike}>
+                <i className="fa-solid fa-thumbs-up"></i>
+              </span>
+              {Dislikes_count}
+              {"    "}
               <i className="fa-regular fa-thumbs-down"></i>
-            </OverlayTrigger>
-          </div>
-        ) : currentUser ? (
-          <div>
-            {Likes_count}
-            {"   "}
-            <span onClick={handleLike}>
+            </Col>
+          ) : LikeDislike_id && LikeType == "dislike" ? (
+            <Col>
+              {Likes_count}
+              {"   "}
               <i className="fa-regular fa-thumbs-up"></i>
-            </span>
-            {Dislikes_count}
-            {"    "}
-            <span onClick={handleDislike}>
-              <i className="fa-regular fa-thumbs-down"></i>
-            </span>
-          </div>
-        ) : (
-          <div>
-            {Likes_count}
-            {"   "}
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Log in to like a post</Tooltip>}
-            >
-              <i className="fa-regular fa-thumbs-up"></i>
-            </OverlayTrigger>
-            {Dislikes_count}
-            {"    "}
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Log in to dislike a post</Tooltip>}
-            >
-              <i className="fa-regular fa-thumbs-down"></i>
-            </OverlayTrigger>
-          </div>
-        )}
-      
-      </div>
+              {Dislikes_count}
+              {"    "}
+              <span onClick={handleUnDislike}>
+                <i className="fa-solid fa-thumbs-down"></i>
+              </span>
+            </Col>
+          ) : is_owner ? (
+            <Col>
+              {Likes_count}
+              {"   "}
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>You can't like your own post</Tooltip>}
+              >
+                <i className="fa-regular fa-thumbs-up"></i>
+              </OverlayTrigger>
+              {Dislikes_count}
+              {"    "}
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>You can't dislike your own post</Tooltip>}
+              >
+                <i className="fa-regular fa-thumbs-down"></i>
+              </OverlayTrigger>
+            </Col>
+          ) : currentUser ? (
+            <Col>
+              {Likes_count}
+              {"   "}
+              <span onClick={handleLike}>
+                <i className="fa-regular fa-thumbs-up"></i>
+              </span>
+              {Dislikes_count}
+              {"    "}
+              <span onClick={handleDislike}>
+                <i className="fa-regular fa-thumbs-down"></i>
+              </span>
+            </Col>
+          ) : (
+            <Col>
+              {Likes_count}
+              {"   "}
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Log in to like a post</Tooltip>}
+              >
+                <i className="fa-regular fa-thumbs-up"></i>
+              </OverlayTrigger>
+              {Dislikes_count}
+              {"    "}
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Log in to dislike a post</Tooltip>}
+              >
+                <i className="fa-regular fa-thumbs-down"></i>
+              </OverlayTrigger>
+            </Col>
+          )}
+          <Col>
+            <Link to={`/posts/${id}`}>
+              <i class="fa-regular fa-comment"></i> {Comments_count}
+            </Link>
+          </Col>
+        </Row>
+      </Card.Footer>
+
       {/* Add comment count here */}
       <hr></hr>
-    </div>
+    </Card>
   );
 }
 
