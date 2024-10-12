@@ -1,6 +1,7 @@
 .nav {
     background-color: black;
     color: #fafafa;
+    width: 100vw;
 }
 
 .NavLink {

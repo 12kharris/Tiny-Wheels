@@ -41,15 +41,15 @@ const CollectionPage = () => {
   return (
     <>
       <Row className={styles.banner}>
-        <Col>
+        <Col className="align-middle">
           <h3>{collection[0]?.Owner}'s collection</h3>
         </Col>
-        <Col>
-          <h4>Views: {collection[0]?.Views}</h4>
+        <Col className="align-middle">
+          Views:   {collection[0]?.Views}
         </Col>
-        <Col>{collection[0]?.items_count} items</Col>
+        <Col className="align-middle">{collection[0]?.items_count} items</Col>
         {collection[0]?.is_owner && (
-          <Col>
+          <Col className="align-middle">
             <Link to={`/collection/${id}/add`}>
               <Button>Add Item</Button>
             </Link>
