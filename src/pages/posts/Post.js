@@ -77,7 +77,14 @@ function Post(props) {
     history.push(`/posts/${id}/edit`);
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/posts/${id}`);
+      history.push(`/profiles/${currentUser?.profile_id}`);
+    } catch (err) {
+      console.log(err.response?.data);
+    }
+  };
 
   const handleLike = async () => {
     try {
@@ -191,26 +198,28 @@ function Post(props) {
   return (
     <Card key={id} className={styles.post}>
       <Card.Header>
-        <Media>
-          <Link to={`profiles/${OwnerProfileID}`}>
-            <ProfilePreview
-              imageURL={OwnerProfileImage}
-              text={OwnerProfile?.Length > 0 ? OwnerProfile : OwnerUsername}
-            />
-          </Link>
-          <div>
+        <Row>
+          <Col style={{textAlign: "left"}}>
+            <Link to={`profiles/${OwnerProfileID}`}>
+              <ProfilePreview
+                imageURL={OwnerProfileImage}
+                text={OwnerProfile?.Length > 0 ? OwnerProfile : OwnerUsername}
+              />
+            </Link>
+          </Col>
+          <Col xs={1}>
             {is_owner && (
               <OptionsDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
             )}
-          </div>
-        </Media>
+          </Col>
+        </Row>
       </Card.Header>
       <Card.Body>
-        <Card.Title>{Title}</Card.Title>
-        <Card.Text>{Caption}</Card.Text>
+        <Card.Title className={styles.title}>{Title}</Card.Title>
+        <Card.Text className={styles.caption}>{Caption}</Card.Text>
         <div className={styles.img_holder}>
           <Link to={`/posts/${id}`}>
             <Card.Img src={Image} className={styles.img}></Card.Img>
@@ -221,96 +230,131 @@ function Post(props) {
       <p>{TagName}</p>
 
       <Card.Footer>
-        <Row>
-          {LikeDislike_id && LikeType == "like" ? (
-            <Col>
-              {Likes_count}
-              {"   "}
-              <span onClick={handleUnLike}>
-                <i className="fa-solid fa-thumbs-up"></i>
-              </span>
-              {Dislikes_count}
-              {"    "}
-              <i className="fa-regular fa-thumbs-down"></i>
-            </Col>
-          ) : LikeDislike_id && LikeType == "dislike" ? (
-            <Col>
-              {Likes_count}
-              {"   "}
-              <i className="fa-regular fa-thumbs-up"></i>
-              {Dislikes_count}
-              {"    "}
-              <span onClick={handleUnDislike}>
-                <i className="fa-solid fa-thumbs-down"></i>
-              </span>
-            </Col>
-          ) : is_owner ? (
-            <Col>
-              {Likes_count}
-              {"   "}
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>You can't like your own post</Tooltip>}
-              >
-                <i className="fa-regular fa-thumbs-up"></i>
-              </OverlayTrigger>
-              {Dislikes_count}
-              {"    "}
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>You can't dislike your own post</Tooltip>}
-              >
-                <i className="fa-regular fa-thumbs-down"></i>
-              </OverlayTrigger>
-            </Col>
-          ) : currentUser ? (
-            <Col>
-              {Likes_count}
-              {"   "}
-              <span onClick={handleLike}>
-                <i className="fa-regular fa-thumbs-up"></i>
-              </span>
-              {Dislikes_count}
-              {"    "}
-              <span onClick={handleDislike}>
-                <i className="fa-regular fa-thumbs-down"></i>
-              </span>
-            </Col>
-          ) : (
-            <Col>
-              {Likes_count}
-              {"   "}
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Log in to like a post</Tooltip>}
-              >
-                <i className="fa-regular fa-thumbs-up"></i>
-              </OverlayTrigger>
-              {Dislikes_count}
-              {"    "}
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Log in to dislike a post</Tooltip>}
-              >
-                <i className="fa-regular fa-thumbs-down"></i>
-              </OverlayTrigger>
-            </Col>
-          )}
-          <Col>
-            <Link to={`/posts/${id}`}>
-              <i className="fa-regular fa-comment"></i> {Comments_count}
-            </Link>
-            {currentUser?.pk && !addComment && showComments && (
-              <Button
-                onClick={() => {
-                  setAddComment(!addComment);
-                }}
-              >
-                Add comment
-              </Button>
+        <div className={styles.footer}>
+          <Row>
+            {LikeDislike_id && LikeType == "like" ? (
+              <Col>
+                <Row>
+                  <Col xs={3}>
+                    <span onClick={handleUnLike} className={styles.liked}>
+                      {Likes_count} <i className="fa-solid fa-thumbs-up"></i>
+                    </span>
+                  </Col>
+                  <Col style={{ textAlign: "left" }}>
+                    <span className={styles.thumbsdown}>
+                      {Dislikes_count}{" "}
+                      <i className="fa-regular fa-thumbs-down"></i>
+                    </span>
+                  </Col>
+                </Row>
+              </Col>
+            ) : LikeDislike_id && LikeType == "dislike" ? (
+              <Col>
+                <Row>
+                  <Col xs={3}>
+                    <span className={styles.thumbsup}>
+                      {Likes_count}
+                      <i className="fa-regular fa-thumbs-up"></i>
+                    </span>
+                  </Col>
+                  <Col style={{ textAlign: "left" }}>
+                    <span onClick={handleUnDislike} className={styles.disliked}>
+                      {Dislikes_count}{" "}
+                      <i className="fa-solid fa-thumbs-down"></i>
+                    </span>
+                  </Col>
+                </Row>
+              </Col>
+            ) : is_owner ? (
+              <Col>
+                <Row>
+                  <Col xs={3}>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip>You can't like your own post</Tooltip>}
+                    >
+                      <span className={styles.thumbsup}>
+                        {Likes_count}
+                        <i className="fa-regular fa-thumbs-up"></i>
+                      </span>
+                    </OverlayTrigger>
+                  </Col>
+                  <Col style={{ textAlign: "left" }}>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={
+                        <Tooltip>You can't dislike your own post</Tooltip>
+                      }
+                    >
+                      <span className={styles.thumbsdown}>
+                        {Dislikes_count}
+                        <i className="fa-regular fa-thumbs-down"></i>
+                      </span>
+                    </OverlayTrigger>
+                  </Col>
+                </Row>
+              </Col>
+            ) : currentUser ? (
+              <Col>
+                <Row>
+                  <Col xs={3}>
+                    <span onClick={handleLike} className={styles.thumbsup}>
+                      {Likes_count}
+                      <i className="fa-regular fa-thumbs-up"></i>
+                    </span>
+                  </Col>
+                  <Col style={{ textAlign: "left" }}>
+                    <span onClick={handleDislike} className={styles.thumbsdown}>
+                      {Dislikes_count}
+                      <i className="fa-regular fa-thumbs-down"></i>
+                    </span>
+                  </Col>
+                </Row>
+              </Col>
+            ) : (
+              <Col>
+                <Row>
+                  <Col xs={3}>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip>Log in to like a post</Tooltip>}
+                    >
+                      <span className={styles.thumbsup}>
+                        {Likes_count}{" "}
+                        <i className="fa-regular fa-thumbs-up"></i>
+                      </span>
+                    </OverlayTrigger>
+                  </Col>
+                  <Col style={{ textAlign: "left" }}>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip>Log in to dislike a post</Tooltip>}
+                    >
+                      <span className={styles.thumbsdown}>
+                        {Dislikes_count}{" "}
+                        <i className="fa-regular fa-thumbs-down"></i>
+                      </span>
+                    </OverlayTrigger>
+                  </Col>
+                </Row>
+              </Col>
             )}
-          </Col>
-        </Row>
+            <Col>
+              <Link to={`/posts/${id}`}>
+                <i className="fa-regular fa-comment"></i> {Comments_count}
+              </Link>
+              {currentUser?.pk && !addComment && showComments && (
+                <Button
+                  onClick={() => {
+                    setAddComment(!addComment);
+                  }}
+                >
+                  Add comment
+                </Button>
+              )}
+            </Col>
+          </Row>
+        </div>
       </Card.Footer>
       {addComment && (
         <Form onSubmit={handleSubmit}>
@@ -353,9 +397,10 @@ function Post(props) {
       )}
       {showComments && (
         <Container>
-          
           {comments.length > 0 ? (
-            comments.map((c) => <Comment key={c.id} {...c} getComments={getComments}/>)
+            comments.map((c) => (
+              <Comment key={c.id} {...c} getComments={getComments} />
+            ))
           ) : (
             <p>No Comments</p>
           )}

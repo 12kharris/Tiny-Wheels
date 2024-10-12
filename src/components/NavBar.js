@@ -29,17 +29,17 @@ function NavBar() {
 
   const loggedInNav = (
     <>
-      <NavLink to="/addpost" activeClassName={styles.active}>Add Post</NavLink>
-      <NavLink to="/following" activeClassName={styles.active}>Following</NavLink>
-      <NavLink to={`/collection/${currentUser?.collection_id}`} activeClassName={styles.active}>Your Collection</NavLink>
-      <NavLink to={`/profiles/${currentUser?.profile_id}`} activeClassName={styles.active}>Profile</NavLink>
-      <NavLink to="/" onClick={handleSignOut}>Sign Out</NavLink>
+      <NavLink to="/addpost" activeClassName={styles.active}><i className="fa-regular fa-square-plus"></i> Add Post</NavLink>
+      <NavLink to="/following" activeClassName={styles.active}><i className="fa-solid fa-users"></i> Following</NavLink>
+      <NavLink to={`/collection/${currentUser?.collection_id}`} activeClassName={styles.active}><i className="fa-solid fa-list"></i> Your Collection</NavLink>
+      <NavLink to={`/profiles/${currentUser?.profile_id}`} activeClassName={styles.active}><i className="fa-solid fa-user"></i> Profile</NavLink>
+      <NavLink to="/" onClick={handleSignOut}><i className="fa-solid fa-right-from-bracket"></i> Sign Out</NavLink>
     </>
   );
   const loggedOutNav = (
     <>
-      <NavLink to="/signin" activeClassName={styles.active}>Sign In</NavLink>
-      <NavLink to="/signup" activeClassName={styles.active}>Sign Up</NavLink>
+      <NavLink to="/signin" activeClassName={styles.active}><i className="fa-solid fa-right-to-bracket"></i> Sign In</NavLink>
+      <NavLink to="/signup" activeClassName={styles.active}><i className="fa-solid fa-user-plus"></i> Sign Up</NavLink>
     </>
   );
 
@@ -49,8 +49,8 @@ function NavBar() {
         <NavbarBrand><span id="logo">Tiny Wheels</span></NavbarBrand>
       </NavLink>
       <Nav className={styles.navlinks}>
-        <NavLink to="/new" activeClassName={styles.active}>New</NavLink>
-        <NavLink to="/popular" activeClassName={styles.active}>Popular</NavLink>
+        <NavLink to="/new" activeClassName={styles.active}><i className="fa-regular fa-clock"></i> New</NavLink>
+        <NavLink to="/popular" activeClassName={styles.active}><i className="fa-solid fa-bolt-lightning"></i> Popular</NavLink>
         {currentUser ? loggedInNav : loggedOutNav}
       </Nav>
     </Navbar>
