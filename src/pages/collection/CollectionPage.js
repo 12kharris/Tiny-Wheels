@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import styles from "../../styles/CollectionPage.module.css";
 
 const CollectionPage = () => {
   const { id } = useParams();
@@ -38,33 +39,58 @@ const CollectionPage = () => {
   };
 
   return (
-    <div>
-      <p>
-        {collection[0]?.Owner}'s collection with {collection[0]?.Views} views
-      </p>
-      <p>{collection[0]?.items_count} items</p>
-      {collection[0]?.is_owner && (
-        <Link to={`/collection/${id}/add`}>
-          <Button>Add Item</Button>
-        </Link>
-      )}
-      <Row>
+    <>
+      <Row className={styles.banner}>
+        <Col>
+          <h3>{collection[0]?.Owner}'s collection</h3>
+        </Col>
+        <Col>
+          <h4>Views: {collection[0]?.Views}</h4>
+        </Col>
+        <Col>{collection[0]?.items_count} items</Col>
+        {collection[0]?.is_owner && (
+          <Col>
+            <Link to={`/collection/${id}/add`}>
+              <Button>Add Item</Button>
+            </Link>
+          </Col>
+        )}
+      </Row>
+      <Row className={styles.itemholder}>
         {collectionItems?.length > 0 ? (
           collectionItems.map((item) => (
-            <Col xs={12} md={6} lg={4} key={item.id}>
-              <p>
-                {item.Name} x{item.Quantity}
-              </p>
-              <Link to={`/collection/item/${item.id}`}>
-                <Image src={item.Image} height={200} width={200} />
-              </Link>
+            <Col xs={12} md={6} lg={2} key={item.id} className={styles.item}>
+              <Card style={{border: "none"}}>
+                <Card.Title>
+                  <Row>
+                    <Col className={styles.header_item}>
+                      <h5>{item.BrandName}</h5>
+                      <p className={styles.series}>{item.SeriesName}</p>
+                    </Col>
+                    <Col xs={2} className={`${styles.header_item} ${styles.quantity}`}>
+                      x{item.Quantity}
+                    </Col>
+                  </Row>
+                </Card.Title>
+                <Card.Body style={{padding: "0"}}>
+                  <div className={styles.img_holder}>
+                    <Link to={`/collection/item/${item.id}`}>
+                      <Card.Img
+                        src={item.Image}
+                        className={styles.img}
+                      ></Card.Img>
+                    </Link>
+                  </div>
+                  <span><p>{item.Name}</p></span>
+                </Card.Body>
+              </Card>
             </Col>
           ))
         ) : (
           <p>No items</p>
         )}
       </Row>
-    </div>
+    </>
   );
 };
 

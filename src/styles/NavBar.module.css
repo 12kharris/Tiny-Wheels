@@ -12,6 +12,7 @@
     width: 90%;
     justify-content: space-evenly;
     font-size: 20px;
+    text-align: left;
 }
 
 .navlinks > a {

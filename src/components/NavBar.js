@@ -48,11 +48,14 @@ function NavBar() {
       <NavLink to="/">
         <NavbarBrand><span id="logo">Tiny Wheels</span></NavbarBrand>
       </NavLink>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse>
       <Nav className={styles.navlinks}>
         <NavLink to="/new" activeClassName={styles.active}><i className="fa-regular fa-clock"></i> New</NavLink>
         <NavLink to="/popular" activeClassName={styles.active}><i className="fa-solid fa-bolt-lightning"></i> Popular</NavLink>
         {currentUser ? loggedInNav : loggedOutNav}
       </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 }

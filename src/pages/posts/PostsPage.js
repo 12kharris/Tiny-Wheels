@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 import Post from "./Post";
-import { Col, Form } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import styles from "../../styles/PostPage.module.css";
 
 const PostsPage = () => {
@@ -30,7 +30,7 @@ const PostsPage = () => {
   }, [searchTerm]);
 
   return (
-    <>
+    <Row>
       <Col md={1} lg={2}></Col>
       <Col className={styles.posts}>
       <Form>
@@ -53,7 +53,7 @@ const PostsPage = () => {
       )}
       </Col>
       <Col md={1} lg={2}></Col>
-    </>
+    </Row>
   );
 };
 

@@ -1,42 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { useCurrentUser } from '../../contexts/CurrentUserContext'
-import { axiosRes } from '../../api/axiosDefaults';
-import Post from './Post';
+import React, { useEffect, useState } from "react";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosRes } from "../../api/axiosDefaults";
+import Post from "./Post";
+import { Col, Row } from "react-bootstrap";
 
 const FollowingPostsPage = () => {
+  const currentUser = useCurrentUser();
+  const [posts, setPosts] = useState([]);
 
-    const currentUser = useCurrentUser();
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-        const getFollowedPosts = async() => {
-            try {
-                if (currentUser) {
-                    console.log(`current user: ${currentUser.profile_id}`)
-                    const {data} = await axiosRes.get(`/posts/?Profile__FollowedProfile__FollowingProfile=${currentUser?.profile_id}`);
-                    console.log(data);
-                    setPosts(data?.results);
-                }       
-            }
-            catch (err) {
-                console.log(err);
-            }
+  useEffect(() => {
+    const getFollowedPosts = async () => {
+      try {
+        if (currentUser) {
+          console.log(`current user: ${currentUser.profile_id}`);
+          const { data } = await axiosRes.get(
+            `/posts/?Profile__FollowedProfile__FollowingProfile=${currentUser?.profile_id}`
+          );
+          console.log(data);
+          setPosts(data?.results);
         }
-        getFollowedPosts();
-    }, [currentUser])
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFollowedPosts();
+  }, [currentUser]);
 
   return (
-    <div>
+    <Row>
+      <Col md={1} lg={2}></Col>
+      <Col>
         {posts?.length > 0 ? (
-            posts.map(post => (
-                //make this a Post component
-                <Post key={post.id} {...post} />
-            ))
+          posts.map((post) => (
+            //make this a Post component
+            <Post key={post.id} {...post} />
+          ))
         ) : (
-            <p>No Results</p>
+          <p>No Results</p>
         )}
-    </div>
-  )
-}
+      </Col>
+      <Col md={1} lg={2}></Col>
+    </Row>
+  );
+};
 
-export default FollowingPostsPage
+export default FollowingPostsPage;

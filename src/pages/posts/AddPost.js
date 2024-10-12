@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Button, Form, Image } from "react-bootstrap";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import styles from "../../styles/AddPost.module.css";
 
 const AddPost = () => {
   const currentUser = useCurrentUser();
@@ -46,7 +47,7 @@ const AddPost = () => {
       URL.revokeObjectURL(image);
       setPostFormData({
         ...postFormData,
-        Image: URL.createObjectURL(event.target.files[0]),
+        image: URL.createObjectURL(event.target.files[0]),
       });
     }
   };
@@ -69,6 +70,9 @@ const AddPost = () => {
   }
 
   return (
+    <Row style={{width: "100%"}}>
+      <Col md={1} lg={2}></Col>
+      <Col>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label>Title</Form.Label>
@@ -93,10 +97,10 @@ const AddPost = () => {
       <Form.Group>
         
         {image ? (
-            <>
-            <Form.Label htmlFor="image-upload">Change Image</Form.Label>
-            <Image src={image} />
-            </>
+            <div>
+            <p><Form.Label htmlFor="image-upload">Change Image</Form.Label></p>
+            <Image src={image} className={styles.img}/>
+            </div>
         ) : (
             <Form.Label htmlFor="image-upload">Upload an image</Form.Label>
         )}
@@ -118,6 +122,9 @@ const AddPost = () => {
       </Form.Group>
       <Button type="submit">Create</Button>
     </Form>
+    </Col>
+    <Col md={1} lg={2}></Col>
+    </Row>
   );
 };
 

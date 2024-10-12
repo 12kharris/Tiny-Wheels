@@ -25,7 +25,6 @@ function App() {
     <div className="App">
       <NavBar />
       <div className={styles.content}>
-        <Row>
           <Switch>
             <Route exact path="/signup" render={() => <SignUpForm />} />
             <Route exact path="/signin" render={() => <SignInForm />} />
@@ -56,7 +55,6 @@ function App() {
             />
             <Route render={() => <NotExists />} />
           </Switch>
-        </Row>
       </div>
     </div>
   );
