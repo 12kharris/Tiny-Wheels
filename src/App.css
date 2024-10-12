@@ -2,8 +2,7 @@
   text-align: center;
   font-family: "Catamaran", sans-serif;
   min-height: 100vh; 
-  margin-left: 20px;
-  margin-right: 20px;
+  background-color: #030e2e;
 }
 
 .App-logo {

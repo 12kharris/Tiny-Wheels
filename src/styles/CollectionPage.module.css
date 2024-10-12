@@ -21,10 +21,10 @@
 .itemholder {
     justify-content: center;
     background-color: #e3e1e1;
-    height: 100vh;
     width: 100vw;
     padding-left: 20px;
     padding-right: 40px;
+    padding-bottom: 30px;
 }
 
 .item {
@@ -33,13 +33,12 @@
     border-width: 2px;
     border-style: solid;
     height: 300px;
-    background-color: #fafafa;
 }
 
 .img_holder {
     display: block;
     height: 170px;
-    background-color: white;
+
 }
 
 .img {
@@ -51,4 +50,15 @@
 .series {
     font-size: 14px;
     color: #333232;
+}
+
+.card {
+    border: none;
+    max-height: 296px;
+    background: none;
+}
+
+.noitems {
+    font-size: 30px;
+    padding-top: 50px;
 }

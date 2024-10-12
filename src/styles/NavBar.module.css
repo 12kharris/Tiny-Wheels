@@ -1,7 +1,13 @@
 .nav {
-    background-color: black;
+    background-color: #010717;
     color: #fafafa;
     width: 100vw;
+    border-bottom: #fafafa;
+    border-width: 2px;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
 }
 
 .NavLink {

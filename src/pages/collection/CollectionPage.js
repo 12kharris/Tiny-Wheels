@@ -44,9 +44,7 @@ const CollectionPage = () => {
         <Col className="align-middle">
           <h3>{collection[0]?.Owner}'s collection</h3>
         </Col>
-        <Col className="align-middle">
-          Views:   {collection[0]?.Views}
-        </Col>
+        <Col className="align-middle">Views: {collection[0]?.Views}</Col>
         <Col className="align-middle">{collection[0]?.items_count} items</Col>
         {collection[0]?.is_owner && (
           <Col className="align-middle">
@@ -56,23 +54,27 @@ const CollectionPage = () => {
           </Col>
         )}
       </Row>
-      <Row className={styles.itemholder}>
-        {collectionItems?.length > 0 ? (
-          collectionItems.map((item) => (
+
+      {collectionItems?.length > 0 ? (
+        <Row className={styles.itemholder}>
+          {collectionItems.map((item) => (
             <Col xs={12} md={6} lg={2} key={item.id} className={styles.item}>
-              <Card style={{border: "none"}}>
+              <Card className={styles.card}>
                 <Card.Title>
                   <Row>
                     <Col className={styles.header_item}>
                       <h5>{item.BrandName}</h5>
                       <p className={styles.series}>{item.SeriesName}</p>
                     </Col>
-                    <Col xs={2} className={`${styles.header_item} ${styles.quantity}`}>
+                    <Col
+                      xs={2}
+                      className={`${styles.header_item} ${styles.quantity}`}
+                    >
                       x{item.Quantity}
                     </Col>
                   </Row>
                 </Card.Title>
-                <Card.Body style={{padding: "0"}}>
+                <Card.Body style={{ padding: "0" }}>
                   <div className={styles.img_holder}>
                     <Link to={`/collection/item/${item.id}`}>
                       <Card.Img
@@ -81,15 +83,17 @@ const CollectionPage = () => {
                       ></Card.Img>
                     </Link>
                   </div>
-                  <span><p>{item.Name}</p></span>
+                  <span>
+                    <p>{item.Name}</p>
+                  </span>
                 </Card.Body>
               </Card>
             </Col>
-          ))
-        ) : (
-          <p>No items</p>
-        )}
-      </Row>
+          ))}
+        </Row>
+      ) : (
+        <p className={styles.noitems}>No items</p>
+      )}
     </>
   );
 };
