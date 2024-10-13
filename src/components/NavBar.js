@@ -52,7 +52,7 @@ function NavBar() {
       <Navbar.Collapse>
       <Nav className={styles.navlinks}>
         <NavLink to="/new" activeClassName={styles.active}><i className="fa-regular fa-clock"></i> New</NavLink>
-        <NavLink to="/popular" activeClassName={styles.active}><i className="fa-solid fa-bolt-lightning"></i> Popular</NavLink>
+        <NavLink to="/posts/popular" activeClassName={styles.active}><i className="fa-solid fa-bolt-lightning"></i> Popular</NavLink>
         {currentUser ? loggedInNav : loggedOutNav}
       </Nav>
       </Navbar.Collapse>

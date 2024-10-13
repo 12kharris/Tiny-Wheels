@@ -18,6 +18,7 @@ import CollectionPage from "./pages/collection/CollectionPage";
 import AddCollectionItem from "./pages/collection/AddCollectionItem";
 import EditCollectionItem from "./pages/collection/EditCollectionItem";
 import EditProfile from "./pages/profiles/EditProfile";
+import Popular from "./pages/posts/Popular";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -39,6 +40,7 @@ function App() {
             />
             <Route exact path="/addpost" render={() => <AddPost />} />
             <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
+            <Route exact path="/posts/popular" render={() => <Popular/>}/>
             <Route exact path="/posts/:id" render={() => <PostDetail />} />
             <Route
               exact
