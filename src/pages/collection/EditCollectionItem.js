@@ -32,7 +32,7 @@ const EditCollectionItem = () => {
   const getSeries = async () => {
     try {
       const { data } = await axiosRes.get("/series/");
-      setSeries(data.results);
+      setSeries(data);
     } catch (err) {
       console.log(err);
     }

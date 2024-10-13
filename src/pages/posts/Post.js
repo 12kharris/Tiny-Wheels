@@ -66,7 +66,7 @@ function Post(props) {
     if (id) {
       try {
         const { data } = await axiosRes.get(`/comments/?Post=${id}`);
-        setComments(data.results);
+        setComments(data);
       } catch (err) {
         console.log(err);
       }

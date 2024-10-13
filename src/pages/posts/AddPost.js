@@ -22,10 +22,10 @@ const AddPost = () => {
     const getTags = async () => {
       try {
         const { data } = await axiosReq.get("/tags/");
-        setTags(data.results);
+        setTags(data);
         setPostFormData({
             ...postFormData,
-            Tag: data.results[0].id
+            Tag: data[0].id
         })
       } catch (err) {
         console.log(err);

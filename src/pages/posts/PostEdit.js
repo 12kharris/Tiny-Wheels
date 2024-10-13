@@ -77,7 +77,7 @@ const PostEdit = () => {
     const getTags = async () => {
       try {
         const { data } = await axiosReq.get("/tags/");
-        setTags(data.results);
+        setTags(data);
       } catch (err) {
         console.log(err);
       }

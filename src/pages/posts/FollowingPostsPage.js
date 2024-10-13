@@ -17,7 +17,7 @@ const FollowingPostsPage = () => {
             `/posts/?Profile__FollowedProfile__FollowingProfile=${currentUser?.profile_id}`
           );
           console.log(data);
-          setPosts(data?.results);
+          setPosts(data);
         }
       } catch (err) {
         console.log(err);

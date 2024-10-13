@@ -10,7 +10,7 @@ const Popular = () => {
   const fetchPosts = async () => {
     try {
         const { data } = await axiosReq.get("/posts/?ordering=-Likes_count");
-        setPosts(data.results);
+        setPosts(data);
     } catch (err) {
       console.log(err);
     }
@@ -18,7 +18,7 @@ const Popular = () => {
 
   useEffect(() => {
     fetchPosts();
-  });
+  },[]);
 
   return (
     <Row>

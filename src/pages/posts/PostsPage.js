@@ -21,11 +21,11 @@ const PostsPage = () => {
       try {
         if (currentTag == "") {
           const { data } = await axiosRes.get(`/posts/?search=${searchTerm}`);
-          setPosts(data.results);
+          setPosts(data);
         }
         else {
           const { data } = await axiosRes.get(`/posts/?Profile__User__username=&Profile__FollowedProfile__FollowingProfile=&Tag=${currentTag}`);
-          setPosts(data.results);
+          setPosts(data);
         }
       } catch (err) {
         console.log(err);
@@ -43,7 +43,7 @@ const PostsPage = () => {
   const getTags = async () => {
     try {
       const { data } = await axiosReq.get("/tags/");
-      setTags(data.results);
+      setTags(data);
     } catch (err) {
       console.log(err);
     }

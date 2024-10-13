@@ -23,10 +23,10 @@ const AddCollectionItem = () => {
   const getSeries = async () => {
     try {
       const { data } = await axiosRes.get("/series/");
-      setSeries(data.results);
+      setSeries(data);
       setCollectionItemFormData({
         ...collectionItemFormData,
-        Series: data.results[0].id,
+        Series: data[0].id,
       });
     } catch (err) {
       console.log(err);

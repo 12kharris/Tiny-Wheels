@@ -40,7 +40,7 @@ export function Profile(props) {
         const { data } = await axiosReq.get(
           `/posts/?Profile__User__username=${OwnerUsername}&Profile__FollowedProfile__FollowingProfile=`
         );
-        setPosts(data.results);
+        setPosts(data);
       }
     } catch (err) {
       console.log(err);
@@ -53,7 +53,7 @@ export function Profile(props) {
         const { data } = await axiosReq.get(
           `/followers/?FollowingProfile__User=${currentUser.pk}&FollowedProfile__id=${id}`
         );
-        setFollowed(data.results);
+        setFollowed(data);
       }
     } catch (err) {
       console.log(err);

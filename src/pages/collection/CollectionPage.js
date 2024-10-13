@@ -20,7 +20,7 @@ const CollectionPage = () => {
     try {
       if (id) {
         const { data } = await axiosRes.get(`/collections/?id=${id}`);
-        setCollection(data.results);
+        setCollection(data);
       }
     } catch (err) {
       console.log(err);
