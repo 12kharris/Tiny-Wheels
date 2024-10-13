@@ -1,0 +1,20 @@
+.img_holder {
+    display: block;
+    max-height: 200px;
+}
+
+.img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 200px;
+}
+
+.contentholder {
+    text-align: left;
+    font-size: 20px;
+}
+
+.postsholder {
+    margin-top: 100px;
+    font-size: 20px;
+}
