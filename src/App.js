@@ -19,6 +19,7 @@ import AddCollectionItem from "./pages/collection/AddCollectionItem";
 import EditCollectionItem from "./pages/collection/EditCollectionItem";
 import EditProfile from "./pages/profiles/EditProfile";
 import Popular from "./pages/posts/Popular";
+import Followers from "./pages/Followers/Followers";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -42,6 +43,8 @@ function App() {
             <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
             <Route exact path="/posts/popular" render={() => <Popular/>}/>
             <Route exact path="/posts/:id" render={() => <PostDetail />} />
+            <Route exact path="/followers/:id" render={() => <Followers following={false}/> }/>
+            <Route exact path="/following/:id" render={() => <Followers following={true}/> }/>
             <Route
               exact
               path="/collection/:id"

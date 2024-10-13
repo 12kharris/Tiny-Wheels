@@ -8,12 +8,12 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import styles from "../../styles/ProfilePage.module.css";
+import styles from "../../styles/Profile.module.css";
 
 export function Profile(props) {
   const {
     //id,
-    User,
+    OwnerUser,
     OwnerUsername,
     Created_at,
     ProfileImage,
@@ -28,11 +28,13 @@ export function Profile(props) {
   const [posts, setPosts] = useState([]);
   const [followed, setFollowed] = useState([]);
   const history = useHistory();
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   useEffect(() => {
     fetchPosts();
     fetchFollowed();
-  }, [currentUser, id, history, OwnerUsername]);
+  }, [currentUser, id, history, OwnerUsername, OwnerUser]);
 
   const fetchPosts = async () => {
     try {
@@ -55,6 +57,15 @@ export function Profile(props) {
         );
         setFollowed(data);
       }
+      if (OwnerUser) {
+        const {data} = await axiosReq.get(`/followers/?FollowingProfile__User=${OwnerUser}&FollowedProfile__id=`);
+        setFollowing(data);
+      }
+      if (id) {
+        const {data} = await axiosReq.get(`/followers/?FollowingProfile__User=&FollowedProfile__id=${id}`);     
+        setFollowers(data);
+      }
+      
     } catch (err) {
       console.log(err);
     }
@@ -116,6 +127,18 @@ export function Profile(props) {
           ) : (
             <></>
           )}
+        </Col>
+        <Col>
+          <Row>
+            <Col>
+              <Link className={styles.followlink} to={`/followers/${id}`}>Followers</Link>
+              <p className={styles.count}>{followers.length}</p>
+            </Col>
+            <Col>
+              <Link className={styles.followlink} to={`/following/${OwnerUser}`}>Following</Link>
+              <p className={styles.count}>{following.length}</p>
+            </Col>
+          </Row>
         </Col>
       </Row>
       <Container className={styles.postsholder}>

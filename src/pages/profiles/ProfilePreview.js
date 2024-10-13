@@ -1,11 +1,9 @@
 import React from 'react'
 
-const ProfilePreview = ({imageURL, text}) => {
-
-    const height = 45;
+const ProfilePreview = ({imageURL, text, height, width}) => {
 
   return (
-    <span>
+    <span style={{width: width ? width : height}}>
       <img
         src={imageURL}
         height={height}

@@ -204,6 +204,7 @@ function Post(props) {
               <ProfilePreview
                 imageURL={OwnerProfileImage}
                 text={OwnerProfile?.Length > 0 ? OwnerProfile : OwnerUsername}
+                height={50}
               />
             </Link>
           </Col>
