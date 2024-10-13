@@ -121,7 +121,6 @@ const EditCollectionItem = () => {
       <Form.Group>
         <Form.Label htmlFor="image-upload">Change Image</Form.Label>
         <Image src={itemData.Image} />
-        <Form.Label htmlFor="image-upload">Upload an image</Form.Label>
         <Form.File
           id="image-upload"
           accept="image/*"

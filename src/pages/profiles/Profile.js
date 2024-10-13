@@ -80,7 +80,7 @@ export function Profile(props) {
 
   return (
     <div>
-      {is_owner && <p>Edit here</p>}
+      {is_owner && <Link to={`/profiles/${id}/edit`}><Button>Edit</Button></Link>}
       <p>{OwnerUsername}</p>
       <p>{Name}</p>
       <Image src={ProfileImage} />

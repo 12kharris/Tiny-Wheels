@@ -17,6 +17,7 @@ import PostEdit from "./pages/posts/PostEdit";
 import CollectionPage from "./pages/collection/CollectionPage";
 import AddCollectionItem from "./pages/collection/AddCollectionItem";
 import EditCollectionItem from "./pages/collection/EditCollectionItem";
+import EditProfile from "./pages/profiles/EditProfile";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/signup" render={() => <SignUpForm />} />
             <Route exact path="/signin" render={() => <SignInForm />} />
             <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+            <Route exact path="/profiles/:id/edit" render={() => <EditProfile/>} />
             <Route exact path="/new" render={() => <PostsPage />} />
             <Route
               exact
