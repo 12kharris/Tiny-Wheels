@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
-import { Button, Form, Image } from "react-bootstrap";
+import { Alert, Button, Form, Image } from "react-bootstrap";
 
 const EditCollectionItem = () => {
   const { id } = useParams();
@@ -17,6 +20,7 @@ const EditCollectionItem = () => {
     is_owner: false,
   });
   const [series, setSeries] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const getCollectionItem = async () => {
     if (id) {
@@ -61,24 +65,24 @@ const EditCollectionItem = () => {
     getSeries();
   }, [id]);
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("Name", itemData.Name);
     formData.append("Series", itemData.Series);
     formData.append("Quantity", itemData.Quantity);
     if (imageInput?.current?.files[0]) {
-        formData.append("Image", imageInput.current.files[0]);
-      }
-    
+      formData.append("Image", imageInput.current.files[0]);
+    }
+
     try {
-        await axiosReq.put(`/collections/item/${id}`, formData);
-        history.push(`/collection/item/${id}`);
+      await axiosReq.put(`/collections/item/${id}`, formData);
+      history.push(`/collection/item/${id}`);
+    } catch (err) {
+      console.log(err?.response.data);
+      setErrors(err.response?.data);
     }
-    catch (err) {
-        console.log(err?.response.data);
-    }
-}
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -91,6 +95,11 @@ const EditCollectionItem = () => {
           value={itemData.Name}
           onChange={handleChange}
         ></Form.Control>
+        {errors.Name?.map((message, idx) => (
+          <Alert key={idx} variant="warning">
+            {message}
+          </Alert>
+        ))}
       </Form.Group>
       <Form.Group>
         <Form.Label>Series</Form.Label>
@@ -128,6 +137,11 @@ const EditCollectionItem = () => {
           ref={imageInput}
           onChange={handleChangeImage}
         ></Form.File>
+        {errors.Image?.map((message, idx) => (
+          <Alert key={idx} variant="warning">
+            Please provide a valid image (height and width less than 4096 px)
+          </Alert>
+        ))}
       </Form.Group>
       <Button type="submit" variant="success">
         Save

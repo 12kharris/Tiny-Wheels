@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import {
   useHistory,
   useParams,
@@ -14,11 +14,12 @@ const AddCollectionItem = () => {
   const [collectionItemFormData, setCollectionItemFormData] = useState({
     Name: "",
     Series: "",
-    Quantity: 0,
+    Quantity: 1,
     Image: null,
   });
   const { name, itemSeries, quantity, image } = collectionItemFormData;
   const imageInput = useRef(null);
+  const [errors, setErrors] = useState({});
 
   const getSeries = async () => {
     try {
@@ -64,6 +65,7 @@ const AddCollectionItem = () => {
       history.push(`/collection/${id}`);
     } catch (err) {
       console.log(err?.response.data);
+      setErrors(err.response?.data);
     }
   };
 
@@ -85,6 +87,11 @@ const AddCollectionItem = () => {
               value={name}
               onChange={handleChange}
             ></Form.Control>
+            {errors.Name?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
           </Form.Group>
           <Form.Group>
             <Form.Label>Series</Form.Label>
@@ -110,8 +117,10 @@ const AddCollectionItem = () => {
           <Form.Group>
             {image ? (
               <div>
-                <p><Form.Label htmlFor="image-upload">Change Image</Form.Label></p>
-                <Image src={image} className={styles.img}/>
+                <p>
+                  <Form.Label htmlFor="image-upload">Change Image</Form.Label>
+                </p>
+                <Image src={image} className={styles.img} />
               </div>
             ) : (
               <Form.Label htmlFor="image-upload">Upload an image</Form.Label>
@@ -123,6 +132,12 @@ const AddCollectionItem = () => {
               ref={imageInput}
               onChange={handleChangeImage}
             ></Form.File>
+            {errors.Image?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                Please provide a valid image (height and width less than 4096
+                px)
+              </Alert>
+            ))}
           </Form.Group>
           <Button type="submit" variant="success">
             Add to collection

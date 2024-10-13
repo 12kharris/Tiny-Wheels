@@ -4,7 +4,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Button, Col, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
 import NotExists from "../../components/NotExists";
 import styles from "../../styles/EditProfile.module.css";
@@ -15,6 +15,7 @@ const EditProfile = () => {
   const [profile, setProfile] = useState({});
   const imageInput = useRef(null);
   const history = useHistory();
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const getProfile = async () => {
@@ -60,6 +61,7 @@ const EditProfile = () => {
     }
     catch (err) {
         console.log(err.response.data);
+        setErrors(err.response?.data);
     }
   };
 
@@ -77,6 +79,12 @@ const EditProfile = () => {
               ref={imageInput}
               onChange={handleChangeImage}
             ></Form.File>
+            {errors.ProfileImage?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                Please provide a valid image (height and width less than 4096
+                px)
+              </Alert>
+            ))}
           </Form.Group>
         </Col>
         <Col md={8} className={styles.formcontrols}>

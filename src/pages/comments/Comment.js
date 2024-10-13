@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Media } from "react-bootstrap";
+import { Alert, Button, Col, Form, Media, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ProfilePreview from "../profiles/ProfilePreview";
 import { OptionsDropdown } from "../../components/OptionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import styles from "../../styles/Comment.module.css";
 
 const Comment = (props) => {
   const {
@@ -28,6 +29,7 @@ const Comment = (props) => {
     Post: Post,
     Content: Content,
   });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const getCommentData = async () => {
@@ -60,77 +62,100 @@ const Comment = (props) => {
     formData.append("Content", commentData.Content);
 
     try {
-      await axiosReq
-        .put(`/comments/${id}`, formData)
-        .then(() => {
-          setEdit(false);
-        })
+      await axiosReq.put(`/comments/${id}`, formData).then(() => {
+        setEdit(false);
+      });
     } catch (err) {
       console.log(err.response?.data);
-      console.log(err);
+      setErrors(err.response?.data);
     }
   };
 
   const handleDelete = async () => {
     try {
-      await axiosReq.delete(`/comments/${id}`).then(() => {getComments()})
-    }
-    catch (err) {
+      await axiosReq.delete(`/comments/${id}`).then(() => {
+        getComments();
+      });
+    } catch (err) {
       console.log(err.response.data);
     }
   };
 
   return (
-    <Media>
-      <Link to={`profiles/${OwnerProfileID}`}>
-        <ProfilePreview
-          imageURL={ProfileImage}
-          text={OwnerProfile?.Length > 0 ? OwnerProfile : Username}
-        />
-      </Link>
-      <span>{Created_ago}</span>
-
-      {edit ? (
-        <Media.Body>
-          {/* Make this an INLINE form */}
-          <Form onSubmit={handleSubmit}>
-            <Form.Control
-              type="text"
-              name="Post"
-              value={Post}
-              hidden
-              readOnly
-            ></Form.Control>
-            <Form.Control
-              type="text"
-              name="Content"
-              value={commentData.Content}
-              onChange={handleChange}
-            ></Form.Control>
-            <Button type="submit">Save</Button>
-          </Form>
-
-          <OptionsDropdown
-            handleEdit={() => {
-              setEdit(!edit);
-            }}
-            handleDelete={handleDelete}
+    <Row style={{alignItems: "center"}}>
+      <Col md={2} className={styles.lesspadding}>
+        <Link to={`profiles/${OwnerProfileID}`}>
+          <ProfilePreview
+            imageURL={ProfileImage}
+            text={OwnerProfile?.Length > 0 ? OwnerProfile : Username}
+            height={50}
           />
-        </Media.Body>
-      ) : (
-        <Media.Body>
-          <p>{commentData.Content}</p>
-          {currentUser?.username == Username && (
-            <OptionsDropdown
-              handleEdit={() => {
-                setEdit(!edit);
-              }}
-              handleDelete={handleDelete}
-            />
-          )}
-        </Media.Body>
-      )}
-    </Media>
+        </Link>
+      </Col>
+      <Col md={2} className={styles.lesspadding}>
+        <span>{Created_ago}</span>
+      </Col>
+
+      <Col md={8} className={styles.lesspadding}>
+        {edit ? (
+          <Row>
+            <Col className={styles.lesspadding}>
+              <Form onSubmit={handleSubmit}>
+                <Row >
+                  <Col className={styles.lesspadding}>
+                    <Form.Control
+                      type="text"
+                      name="Post"
+                      value={Post}
+                      hidden
+                      readOnly
+                    ></Form.Control>
+                    <Form.Control
+                      type="text"
+                      name="Content"
+                      value={commentData.Content}
+                      onChange={handleChange}
+                    ></Form.Control>
+                    {errors.Content?.map((message, idx) => (
+                      <Alert key={idx} variant="warning">
+                        {message}
+                      </Alert>
+                    ))}
+                  </Col>
+                  <Col md={2} className={styles.lesspadding}>
+                    <Button type="submit">Save</Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+            <Col md={2}>
+              <OptionsDropdown
+                handleEdit={() => {
+                  setEdit(!edit);
+                }}
+                handleDelete={handleDelete}
+              />
+            </Col>
+          </Row>
+        ) : (
+          <Row className={styles.contentholder}>
+            <Col style={{textAlign: "left"}} className={styles.lesspadding}>
+              {commentData.Content}
+            </Col>
+            {currentUser?.username == Username && (
+              <Col md={1} className={styles.lesspadding}>
+                <OptionsDropdown
+                  handleEdit={() => {
+                    setEdit(!edit);
+                  }}
+                  handleDelete={handleDelete}
+                />
+              </Col>
+            )}
+          </Row>
+        )}
+      </Col>
+    </Row>
   );
 };
 

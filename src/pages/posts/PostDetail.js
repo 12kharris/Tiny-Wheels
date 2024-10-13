@@ -27,9 +27,11 @@ const PostDetail = () => {
 
   return (
     <Row>
+      <Col md={1} lg={2}></Col>
       <Col>
         <Post {...post} showComments={true} />
       </Col>
+      <Col md={1} lg={2}></Col>
     </Row>
   );
 };

@@ -1,0 +1,10 @@
+.lesspadding {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+}
+
+.contentholder {
+    align-items: center;
+    width: 100%;
+}

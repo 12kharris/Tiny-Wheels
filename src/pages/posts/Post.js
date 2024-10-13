@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { OptionsDropdown } from "../../components/OptionsDropdown";
 import ProfilePreview from "../profiles/ProfilePreview";
 import {
+  Alert,
   Button,
   Card,
   Col,
@@ -51,6 +52,7 @@ function Post(props) {
     Post: null,
     Content: "",
   });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (id) {
@@ -192,6 +194,7 @@ function Post(props) {
       setComments((prevComments) => [...prevComments, data]);
     } catch (err) {
       console.log(err.response.data);
+      setErrors(err.response?.data);
     }
   };
 
@@ -344,14 +347,15 @@ function Post(props) {
               <Link to={`/posts/${id}`}>
                 <i className="fa-regular fa-comment"></i> {Comments_count}
               </Link>
+              
               {currentUser?.pk && !addComment && showComments && (
-                <Button
+                <span style={{textAlign: "right"}}><Button
                   onClick={() => {
                     setAddComment(!addComment);
                   }}
                 >
                   Add comment
-                </Button>
+                </Button></span>
               )}
             </Col>
           </Row>
@@ -368,7 +372,7 @@ function Post(props) {
           ></Form.Control>
           <Form.Group>
             <Row>
-              <Col>
+              <Col xs={8} style={{paddingRight: "0px"}}>
                 <Form.Control
                   type="text"
                   value={commentFormData.Content}
@@ -376,8 +380,13 @@ function Post(props) {
                   placeholder="Type a comment..."
                   onChange={handleCommentChange}
                 ></Form.Control>
+                {errors.Content?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
               </Col>
-              <Col>
+              <Col xs={1} style={{paddingLeft: "0px"}}>
                 <Button variant="success" type="submit">
                   Add
                 </Button>

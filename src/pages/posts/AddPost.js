@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Button, Col, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "../../styles/AddPost.module.css";
@@ -17,6 +17,7 @@ const AddPost = () => {
   });
   const { title, caption, image, tag } = postFormData;
   const imageInput = useRef(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const getTags = async () => {
@@ -24,9 +25,9 @@ const AddPost = () => {
         const { data } = await axiosReq.get("/tags/");
         setTags(data);
         setPostFormData({
-            ...postFormData,
-            Tag: data[0].id
-        })
+          ...postFormData,
+          Tag: data[0].id,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -59,71 +60,85 @@ const AddPost = () => {
     formData.append("Caption", postFormData.Caption);
     formData.append("Image", imageInput.current.files[0]);
     formData.append("Tag", postFormData.Tag);
-    
+
     try {
-        const {data} = await axiosReq.post("/posts/", formData);
-        history.push("/new/");
+      const { data } = await axiosReq.post("/posts/", formData);
+      history.push("/new/");
+    } catch (err) {
+      console.log(err.response.data);
+      setErrors(err.response?.data);
     }
-    catch (err) {
-        console.log(err.response.data);
-    }
-  }
+  };
 
   return (
-    <Row style={{width: "100%"}}>
+    <Row style={{ width: "100%" }}>
       <Col md={1} lg={2}></Col>
       <Col>
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          type="text"
-          name="Title"
-          id="Title"
-          value={title}
-          onChange={handleChange}
-        ></Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Caption</Form.Label>
-        <Form.Control
-          type="text"
-          name="Caption"
-          id="Caption"
-          value={caption}
-          onChange={handleChange}
-        ></Form.Control>
-      </Form.Group>
-      <Form.Group>
-        
-        {image ? (
-            <div>
-            <p><Form.Label htmlFor="image-upload">Change Image</Form.Label></p>
-            <Image src={image} className={styles.img}/>
-            </div>
-        ) : (
-            <Form.Label htmlFor="image-upload">Upload an image</Form.Label>
-        )}
-        <Form.File
-          id="image-upload"
-          accept="image/*"
-          name="Image"
-          ref={imageInput}
-          onChange={handleChangeImage}
-        ></Form.File>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Tag</Form.Label>
-        <Form.Control as="select" onChange={handleChange} name="Tag">
-          {tags?.map((tag) => (
-                <option key={tag.id} value={tag.id}>{tag.TagName}</option> 
-          ))}
-        </Form.Control>
-      </Form.Group>
-      <Button type="submit">Create</Button>
-    </Form>
-    </Col>
-    <Col md={1} lg={2}></Col>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              name="Title"
+              id="Title"
+              value={title}
+              onChange={handleChange}
+            ></Form.Control>
+            {errors.Title?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Caption</Form.Label>
+            <Form.Control
+              type="text"
+              name="Caption"
+              id="Caption"
+              value={caption}
+              onChange={handleChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group>
+            {image ? (
+              <div>
+                <p>
+                  <Form.Label htmlFor="image-upload">Change Image</Form.Label>
+                </p>
+                <Image src={image} className={styles.img} />
+              </div>
+            ) : (
+              <Form.Label htmlFor="image-upload">Upload an image</Form.Label>
+            )}
+            <Form.File
+              id="image-upload"
+              accept="image/*"
+              name="Image"
+              ref={imageInput}
+              onChange={handleChangeImage}
+            ></Form.File>
+            {errors.Image?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                Please provide a valid image (height and width less than 4096
+                px)
+              </Alert>
+            ))}
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Tag</Form.Label>
+            <Form.Control as="select" onChange={handleChange} name="Tag">
+              {tags?.map((tag) => (
+                <option key={tag.id} value={tag.id}>
+                  {tag.TagName}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+          <Button type="submit">Create</Button>
+        </Form>
+      </Col>
+      <Col md={1} lg={2}></Col>
     </Row>
   );
 };
