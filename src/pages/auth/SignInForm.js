@@ -32,7 +32,7 @@ const SignInForm = () => {
       setCurrentUser(data.user)
       console.log(data);
       console.log(currentUser);
-      history.goBack();
+      history.push("/new");
     } catch (err) {
       setErrors(err.response?.data);
     }
