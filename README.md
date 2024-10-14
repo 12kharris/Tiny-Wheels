@@ -183,7 +183,10 @@ All files were formatted using the Prettier code formatter for consistency.
 
 
 ## Known Issues
-Occasionally, the button to edit a post does not work when first clicked but often works after waiting a few seconds. This is not a serious bug and does not break the application.
+- Occasionally, the button to edit a post does not work when first clicked but often works after waiting a few seconds. This is not a serious bug and does not break the application.
+- If a user stays signed in but comes back after some time, the navbar will still show logged in status but the user is not recognised as an owner of any objects
+- The 'New' navlink always has the active style with an underline
+
 
 ## Problems encountered
 - The tag was designed to be optional and can be blank in the database. However when submitting the form, an absent tag on post creation kept being turned into an empty string which was failing the post request. To get around this, new tag of "No tag" has been made and logic around it so it won't display. 
