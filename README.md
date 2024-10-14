@@ -31,6 +31,8 @@ Before development, planning of the look of the application and the key pages wa
 ![Posts](https://res.cloudinary.com/da2ant1dk/image/upload/v1728850581/media/images/oeu9mchftuclszjo6mrj.png)
 ![Collection](https://res.cloudinary.com/da2ant1dk/image/upload/v1728850580/media/images/pclavllqtljtl0gxnrte.png)
 
+The dark navy colour was chosen as the theme as it has a clean look and is also sophisticated, indicating that this is a serious platform.
+
 
 ### User Stories
 The development process was broken down into sprints containing various user tasks. This was originally done on Azure DevOps but was switched to GitHub projects midway through development. Below are links to both boards. Each work item is associated to a sprint/iteration.
