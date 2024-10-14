@@ -1,6 +1,6 @@
 
 # Tiny Wheels React.js Front-End
-Tiny wheels is a website where users can view posts and diecast vehicle collections of other users. The site is aimed at diecast vehicle enthusiasts who wish to share their enjoyment of the hobby with others. This half of the project is the front end, user facing website. The site allows anyone to view posts made by other users, see a user's profile and see a user's collection. Logged in users can create posts, like posts and comment n posts. They can also add items to their vehicle collections and follow other user's profiles.
+Tiny wheels is a website where users can view posts and diecast vehicle collections of other users. The aim of this project was to create site for diecast vehicle enthusiasts who wish to share their enjoyment of the hobby with others. This half of the project is the front end, user facing website. The site allows anyone to view posts made by other users, see a user's profile and see a user's collection. Logged in users can create posts, like posts and comment n posts. They can also add items to their vehicle collections and follow other user's profiles.
 
 The live site can be found at https://tiny-wheels-1dcc9b8480fe.herokuapp.com/
 
@@ -57,7 +57,7 @@ Every page on the app features the NavBar component. This can show different ico
 ![logged in](https://res.cloudinary.com/da2ant1dk/image/upload/v1728929284/logged_in_nav_l6h2tw.png)
 
 ### New Page
-The new page shows all posts from all users from newest to oldest. On this page, a user can use the search bar to search posts to tailor their feed. They can also click on one of the Tag options which will filter the posts, showing only the ones with the desired tag. The searchbar is cleared and disabled when a tag is being filtered on.
+The new page is the root page and shows all posts from all users from newest to oldest. On this page, a user can use the search bar to search posts to tailor their feed. They can also click on one of the Tag options which will filter the posts, showing only the ones with the desired tag. The searchbar is cleared and disabled when a tag is being filtered on.
 
 ![new page](https://res.cloudinary.com/da2ant1dk/image/upload/v1728929286/new_page_g2z6x6.png)
 
