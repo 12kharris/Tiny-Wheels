@@ -108,6 +108,18 @@ When a user creates a post, they can choose to add a tag to the post which other
 ### Signing Out
 A logged in user can choose to sign out using the provided nav bar icon. When this is done, the user is logged out and they are returned to the 'New' page.
 
+## Reused Components
+### Post
+The Post displays a post content and any modification options. This component is utilised in 3 pages: the home (new) page, the popular page and in the Profile page to see a user's posts.
+### Comment
+The comment componenet is used in every post. It displays the content of a comment and any modification options if applicable.
+### ProfilePreview
+The ProfilePreview component shows a small preview of a profile. It displays the profile image and the username. It is used on posts, comments and in the following/followers pages.
+### OptionsDropdown
+This component is used on posts and comments when a user owns the object. It contains the Edit and Delete options
+### NotExists
+This component is re-used when a page can't be found or a user is unauthorised to be viewing the contents of a page
+
 
 ## Testing
 The scenarios were tested to ensure the application is secure and functions as expected.
