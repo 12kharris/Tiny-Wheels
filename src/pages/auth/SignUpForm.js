@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
-import { axiosRes } from "../../api/axiosDefaults";
 import axios from "axios";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 

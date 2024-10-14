@@ -1,5 +1,4 @@
 import jwtDecode from "jwt-decode";
-import { axiosReq } from "../api/axiosDefaults";
 
 export const setTokenTimestamp = (data) => {
   const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp; // .exp is this object's expiry date

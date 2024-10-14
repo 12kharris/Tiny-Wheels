@@ -154,9 +154,12 @@ Below are the steps that were taken to deploy the application to Heroku:
 
 ## Code Validation
 ### HTML
-Using W3C
+Using W3C's HTML validator, all pages only had one error caused by the NavBar component. The issue lies with an aria-controls value which is caused by a React-bootstrap element and so is not avoidable
+![HTML valid](https://res.cloudinary.com/da2ant1dk/image/upload/v1728935873/post_validation_zrq65f.png)
 
 ### CSS
+All CSS returned no errors using the W3C CSS validator
+![CSS valid](https://res.cloudinary.com/da2ant1dk/image/upload/v1728936100/css_valid_cypu9q.png)
 
 ### Javascript and JSX
 The JSHint validator is unable to assess the validity of JSX code. However, the Prettier code formatter automatically adds any missing semicolons to javascript experessions.
@@ -176,6 +179,7 @@ Occasionally, the button to edit a post does not work when first clicked but oft
 ## Future Features
 Below are features which I would like to add to the application in the future.
 - Viewing liked posts on the profile page: The API functionality exists to see posts you ahve liked. There is no view for this currently and could be added.
+- Adding the tag to the display of the Post component: This was removed due to time constraints and it disrupting the layout of the Post component.
 - Private profiles: Allow a user to mark their profile as private where only users who follow them can see their posts. This would require some work creating follow requests.
 - Add loading symbols: There currently isn't any state shown when we are awaiting an API response. A loading symbol could be added in this case
 - Comment chains: Adding replies to comments possibly by using a ParentCommentID on a comment for handling replies

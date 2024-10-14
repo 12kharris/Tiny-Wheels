@@ -1,9 +1,7 @@
 import "./App.css";
 import styles from "./styles/app.module.css";
-import { Container, Row } from "react-bootstrap";
 import "./api/axiosDefaults";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
-import { useCurrentUser } from "./contexts/CurrentUserContext";
 import SignInForm from "./pages/auth/SignInForm";
 import SignUpForm from "./pages/auth/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -22,7 +20,6 @@ import Popular from "./pages/posts/Popular";
 import Followers from "./pages/Followers/Followers";
 
 function App() {
-  const currentUser = useCurrentUser();
 
   return (
     <div className="App">

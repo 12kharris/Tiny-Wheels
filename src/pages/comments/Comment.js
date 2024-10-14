@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Col, Form, Media, Row } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import ProfilePreview from "../profiles/ProfilePreview";
 import { OptionsDropdown } from "../../components/OptionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -15,14 +15,12 @@ const Comment = (props) => {
     OwnerProfileID,
     ProfileImage,
     Username,
-    is_owner,
     Created_ago,
     Content,
     getComments,
   } = props;
 
   const currentUser = useCurrentUser();
-  const history = useHistory();
 
   const [edit, setEdit] = useState(false);
   const [commentData, setCommentData] = useState({
@@ -46,7 +44,7 @@ const Comment = (props) => {
       }
     };
     getCommentData();
-  }, [edit]);
+  }, [edit, id]);
 
   const handleChange = (event) => {
     setCommentData({

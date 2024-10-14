@@ -23,6 +23,11 @@
     font-size: 20px;
 }
 
+.tag {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .thumbsup {
     color: #017303;
 }

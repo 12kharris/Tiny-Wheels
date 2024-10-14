@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "../../styles/AddPost.module.css";
 import NotExists from "../../components/NotExists";
@@ -16,7 +16,7 @@ const AddPost = () => {
     Image: "",
     Tag: null,
   });
-  const { title, caption, image, tag } = postFormData;
+  const { title, caption, image } = postFormData;
   const imageInput = useRef(null);
   const [errors, setErrors] = useState({});
 
@@ -64,7 +64,7 @@ const AddPost = () => {
     formData.append("Tag", postFormData.Tag);
 
     try {
-      const { data } = await axiosReq.post("/posts/", formData);
+      await axiosReq.post("/posts/", formData);
       history.push("/new/");
     } catch (err) {
       console.log(err.response.data);

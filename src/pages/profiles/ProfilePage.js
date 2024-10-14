@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
-import { Col, Image, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Profile from "./Profile";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 

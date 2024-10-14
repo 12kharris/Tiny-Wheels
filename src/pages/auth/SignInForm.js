@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import {
   useCurrentUser,
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import NotExists from "../../components/NotExists";
 
 const SignInForm = () => {
   const [signInData, setSignInData] = useState({
@@ -41,6 +42,7 @@ const SignInForm = () => {
   };
 
   return (
+    !currentUser ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -99,6 +101,9 @@ const SignInForm = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
+    ) : (
+      <NotExists/>
+    )
   );
 };
 

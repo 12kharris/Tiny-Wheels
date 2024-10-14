@@ -17,7 +17,7 @@ const AddCollectionItem = () => {
     Quantity: 1,
     Image: null,
   });
-  const { name, itemSeries, quantity, image } = collectionItemFormData;
+  const { name, quantity, image } = collectionItemFormData;
   const imageInput = useRef(null);
   const [errors, setErrors] = useState({});
 

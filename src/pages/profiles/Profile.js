@@ -12,14 +12,12 @@ import styles from "../../styles/Profile.module.css";
 
 export function Profile(props) {
   const {
-    //id,
     OwnerUser,
     OwnerUsername,
     Created_at,
     ProfileImage,
     Name,
     is_owner,
-    is_followed,
     collection_id,
   } = props;
 

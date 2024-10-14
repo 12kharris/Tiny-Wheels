@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   useCurrentUser,
   useSetCurrentUser,
@@ -12,12 +12,6 @@ import styles from "../styles/NavBar.module.css";
 function NavBar() {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
-
-  const [profileID, setProfileID] = useState(null);
-
-  useEffect(() => {
-    setProfileID(currentUser?.profile_id);
-  }, [currentUser]);
 
   const handleSignOut = async () => {
     try {

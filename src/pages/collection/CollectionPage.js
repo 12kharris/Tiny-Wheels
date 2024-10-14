@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import styles from "../../styles/CollectionPage.module.css";
 
 const CollectionPage = () => {

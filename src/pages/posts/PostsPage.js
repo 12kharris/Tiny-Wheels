@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Post from "./Post";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import styles from "../../styles/PostPage.module.css";
 
 const PostsPage = () => {
-  const currentUser = useCurrentUser();
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tags, setTags] = useState([]);

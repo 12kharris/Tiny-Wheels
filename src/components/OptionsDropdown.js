@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Dropdown, DropdownButton } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import styles from "../styles/OptionsDropdown.module.css";
 
 export const OptionsDropdown = (props) => {

@@ -22,7 +22,7 @@ const PostEdit = () => {
     TagColour: "",
     OwnerUsername: "",
   });
-  const { Title, Caption, Tag, TagName, TagColour } = postData;
+  const { Title, Caption, Tag } = postData;
   var image = postData.Image;
   const [tags, setTags] = useState([]);
   const imageInput = useRef(null);

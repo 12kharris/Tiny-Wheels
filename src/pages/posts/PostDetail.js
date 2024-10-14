@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { axiosRes } from "../../api/axiosDefaults";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Post from "./Post";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { Col, Container, Row } from "react-bootstrap";
-import Comment from "../comments/Comment";
+import { Col, Row } from "react-bootstrap";
 
 const PostDetail = () => {
-  const currentUser = useCurrentUser();
   const { id } = useParams();
   const [post, setPost] = useState({});
 

@@ -10,7 +10,6 @@ import {
   Col,
   Container,
   Form,
-  Media,
   OverlayTrigger,
   Row,
   Tooltip,
@@ -22,7 +21,6 @@ import Comment from "../comments/Comment";
 function Post(props) {
   const {
     Caption,
-    Created_at,
     Dislikes_count,
     Image,
     LikeDislike_id,
@@ -33,11 +31,7 @@ function Post(props) {
     OwnerProfileID,
     OwnerProfileImage,
     OwnerUsername,
-    Tag,
-    TagColour,
-    TagName,
     Title,
-    Updated_at,
     id,
     is_owner,
     setPosts,
@@ -230,9 +224,6 @@ function Post(props) {
           </Link>
         </div>
       </Card.Body>
-
-      <p>{TagName}</p>
-
       <Card.Footer>
         <div className={styles.footer}>
           <Row>
