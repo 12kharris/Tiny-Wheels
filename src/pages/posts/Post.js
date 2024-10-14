@@ -226,7 +226,7 @@ function Post(props) {
         <Card.Text className={styles.caption}>{Caption}</Card.Text>
         <div className={styles.img_holder}>
           <Link to={`/posts/${id}`}>
-            <Card.Img src={Image} className={styles.img}></Card.Img>
+            <Card.Img src={Image} className={styles.img} alt="post image"></Card.Img>
           </Link>
         </div>
       </Card.Body>

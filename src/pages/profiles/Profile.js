@@ -104,7 +104,7 @@ export function Profile(props) {
       <Row>
         <Col md={4}>
           <div className={styles.img_holder}>
-            <Image src={ProfileImage} className={styles.img} rounded />
+            <Image src={ProfileImage} className={styles.img} rounded alt="profile image"/>
           </div>
         </Col>
 

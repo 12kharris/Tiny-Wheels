@@ -151,7 +151,7 @@ const EditCollectionItem = () => {
               <p>
                 <Form.Label htmlFor="image-upload">Change Image</Form.Label>
               </p>
-              <Image src={itemData.Image} className={styles.img} />
+              <Image src={itemData.Image} className={styles.img} alt="image"/>
             </div>
 
             <Form.File

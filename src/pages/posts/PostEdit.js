@@ -129,7 +129,7 @@ const PostEdit = () => {
               <p>
                 <Form.Label htmlFor="image-upload">Change Image</Form.Label>
               </p>
-              <Image src={image} className={styles.img} />
+              <Image src={image} className={styles.img} alt="image"/>
             </div>
             <Form.File
               id="image-upload"

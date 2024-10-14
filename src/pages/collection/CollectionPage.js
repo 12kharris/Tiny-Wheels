@@ -80,6 +80,7 @@ const CollectionPage = () => {
                       <Card.Img
                         src={item.Image}
                         className={styles.img}
+                        alt="collection item image"
                       ></Card.Img>
                     </Link>
                   </div>
