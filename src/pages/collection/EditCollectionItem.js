@@ -7,6 +7,7 @@ import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import styles from "../../styles/EditCollectionItem.module.css";
+import NotExists from "../../components/NotExists";
 
 const EditCollectionItem = () => {
   const { id } = useParams();
@@ -100,6 +101,7 @@ const EditCollectionItem = () => {
   };
 
   return (
+    currentUser && currentUser.username == itemData?.Owner ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -175,6 +177,9 @@ const EditCollectionItem = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
+    ) : (
+      <NotExists />
+    )
   );
 };
 

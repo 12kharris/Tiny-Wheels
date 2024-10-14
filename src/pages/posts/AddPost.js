@@ -4,6 +4,7 @@ import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "../../styles/AddPost.module.css";
+import NotExists from "../../components/NotExists";
 
 const AddPost = () => {
   const currentUser = useCurrentUser();
@@ -33,7 +34,7 @@ const AddPost = () => {
       }
     };
     getTags();
-  }, []);
+  }, [currentUser]);
 
   const handleChange = (event) => {
     setPostFormData({
@@ -72,6 +73,7 @@ const AddPost = () => {
   };
 
   return (
+    currentUser ? (
     <Row style={{ width: "100%" }}>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -140,7 +142,10 @@ const AddPost = () => {
         </Form>
       </Col>
       <Col md={1} lg={2}></Col>
-    </Row>
+    </Row>)
+    : (
+      <NotExists/>
+    )
   );
 };
 

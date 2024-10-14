@@ -7,6 +7,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import styles from "../../styles/PostEdit.module.css";
+import NotExists from "../../components/NotExists";
 
 const PostEdit = () => {
   const currentUser = useCurrentUser();
@@ -19,6 +20,7 @@ const PostEdit = () => {
     Tag: "",
     TagName: "",
     TagColour: "",
+    OwnerUsername: "",
   });
   const { Title, Caption, Tag, TagName, TagColour } = postData;
   var image = postData.Image;
@@ -93,6 +95,7 @@ const PostEdit = () => {
   }, [id, currentUser]);
 
   return (
+    currentUser && currentUser?.username == postData.OwnerUsername ? (
     <Row style={{ width: "100%" }}>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -161,6 +164,9 @@ const PostEdit = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
+    ) : (
+      <NotExists />
+    )
   );
 };
 

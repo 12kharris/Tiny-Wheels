@@ -7,16 +7,19 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import ProfilePreview from "../profiles/ProfilePreview";
 import { axiosReq } from "../../api/axiosDefaults";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import NotExists from "../../components/NotExists";
 
 const Followers = (props) => {
   const { following } = props;
   const { id } = useParams();
   const [profiles, setProfiles] = useState([]);
   const history = useHistory();
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     fetchProfileList();
-  }, [id, following]);
+  }, [id, following, currentUser]);
 
   const fetchProfileList = async () => {
     try {
@@ -39,6 +42,7 @@ const Followers = (props) => {
   };
 
   return (
+    currentUser ? (
     <Row>
       <Col xs={2}>
         <Button
@@ -89,6 +93,9 @@ const Followers = (props) => {
 
       <Col xs={2}></Col>
     </Row>
+    ) : (
+      <NotExists/>
+    )
   );
 };
 

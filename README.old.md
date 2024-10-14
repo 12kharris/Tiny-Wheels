@@ -89,7 +89,7 @@ Any logged in user can comment on any post. This is done in the post detail view
 ![comment](https://res.cloudinary.com/da2ant1dk/image/upload/v1728929284/comment_j6ndgo.png)
 
 ### Following
-Logged in users can follow each other. When a user follows another, their content will appear on the 'Following' page. A user can also view who they are following from a link on the profile page which will take them to a simple page which lists all of the profiles the user is following. A user can also see profiles who follow them with a similar link on the profile page.
+Logged in users can follow each other. When a user follows another, their content will appear on the 'Following' page. A user can also view who they are following from a link on the profile page which will take them to a simple page which lists all of the profiles the user is following. A user can also see profiles who follow them with a similar link on the profile page. To follow a profile, a user can use the button present on the Profile page to follow and unfollow the profile.
 
 ### Profile Page
 The profile page shows the details of a specific profile. It shows the profile's username, their name (if they have provided one), when they signed up, a link to see their collection, how many users they follow and how many users follow them. If a user is viewing the profile they own, an edit button is present where they can edit their profile image and name. Below the details of the profile, any posts the profile has made will be listed.
@@ -99,7 +99,7 @@ The profile page shows the details of a specific profile. It shows the profile's
 ### Collections
 Each profile has a collection. The collection is where a user can list all of the models they own. They can add an item through a button that appears if the user is viewing their own collection. A collection item contains the following pieces of info: the brand of the model, the series of the model, an image of the model, then name of the model and the quantity that the user owns. The collection items are displayed in a grid. If a user owns the collection item, they can click on it to edit its details. This is done through another simple form.
 
-COLLECTION PAGE AND FORM
+![collection page](https://res.cloudinary.com/da2ant1dk/image/upload/v1728931987/collection_page_pot7a0.png)
 
 
 ### Tags
@@ -112,21 +112,36 @@ A logged in user can choose to sign out using the provided nav bar icon. When th
 ## Testing
 The scenarios were tested to ensure the application is secure and functions as expected.
 ### Logged out user cannot create a post
+When not logged in, attempting to navigate to the addpost page returns the NotExists component instead of the form to add a post. This is a PASS.
+
 ### Logged out user cannot like or dislike a post
+When not logged in, the buttons to like or dislike a post are disabled and the user cannot perform these actions. This is a PASS
+
 ### Logged out user cannot comment
+When logged out, the button to add a comment is not present so a user cannot perform this action. This is a PASS.
+
 ### Logged out user cannot go to the following/followers pages
+When logged out, if the user navigates to the following page or a followers page, the NotExists component is returned instead of the usual page content. This is a PASS.
+
 ### Logged in user cannot edit a profile they don't own
+If a logged in user attempts to navigate to the edit page of a profile they don't own, the NotExists component is returned instead of the usual page content. This is a PASS.
+
 ### Logged in user cannot edit a comment they don't own
+When logged in, if a user sees a comment they don't own, the button to edit a comment is not present so the user cannot perform this action. This is a PASS.
+
 ### Logged in user cannot edit a collection item they don't own
+When logged in, if a user attempts to navigate to the edit page of a collection item they don't own, the NotExists component is returned instead of the usual page content. This is a PASS.
+
 ### Logged in user cannot edit a post they don't own
+When logged in, if a user attempts to navigate to the edit page of a post they don't own, the NotExists component is returned instead of the usual page content. This is a PASS.
 
 
 ### Responsive Testing
 The website was viewed on a large, medium and small screen to assess the usability of the site on all devices. Below are a variety of screenshots with the results. The site is functional on all devices.
 
-LARGE
-MEDIUM
-SMALL
+![large](https://res.cloudinary.com/da2ant1dk/image/upload/v1728932192/large_fvgrqu.png)
+![medium](https://res.cloudinary.com/da2ant1dk/image/upload/v1728932192/medium_pm9u1l.png)
+![small](https://res.cloudinary.com/da2ant1dk/image/upload/v1728932192/small_onmcet.png)
 
 
 ## Deployment
@@ -139,13 +154,10 @@ Below are the steps that were taken to deploy the application to Heroku:
 
 ## Code Validation
 ### HTML
-Using W3C, all pages had no errors from my custome HTML. The only errors are from HTML loaded with the font-awesome scripts at the bottom of the page.
-
-![HTML valid](https://github.com/12kharris/spending-tracker/blob/57a0bd857e616babcce8dd46996d0ed4e4dff1bb/README-Images/HTML%20validation.png?raw=true)
-The above error is from a font awesome script
+Using W3C
 
 ### CSS
-The CSS code passed the W3C validator with no errors
+
 
 
 ### Javascript
@@ -161,4 +173,9 @@ Using JSHint
 
 ## Future Features
 Below are features which I would like to add to the application in the future.
-- 
+- Viewing liked posts on the profile page: The API functionality exists to see posts you ahve liked. There is no view for this currently and could be added.
+- Private profiles: Allow a user to mark their profile as private where only users who follow them can see their posts. This would require some work creating follow requests.
+- Add loading symbols: There currently isn't any state shown when we are awaiting an API response. A loading symbol could be added in this case
+- Comment chains: Adding replies to comments possibly by using a ParentCommentID on a comment for handling replies
+- Private messaging: An ability to message a profile would be useful
+- Having a preset list of models: being able to search for a model when adding a collection item and it will prefill the form if a match is found. This could also help restrict what can be uploaded to a collection as currently someone could upload anything as a collection item.

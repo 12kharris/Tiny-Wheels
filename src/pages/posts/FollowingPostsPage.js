@@ -3,6 +3,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 import Post from "./Post";
 import { Col, Row } from "react-bootstrap";
+import NotExists from "../../components/NotExists";
 
 const FollowingPostsPage = () => {
   const currentUser = useCurrentUser();
@@ -27,6 +28,7 @@ const FollowingPostsPage = () => {
   }, [currentUser]);
 
   return (
+    currentUser ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -40,6 +42,9 @@ const FollowingPostsPage = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
+    ) : (
+      <NotExists />
+    )
   );
 };
 
