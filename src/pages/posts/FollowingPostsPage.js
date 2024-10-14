@@ -32,7 +32,6 @@ const FollowingPostsPage = () => {
       <Col>
         {posts?.length > 0 ? (
           posts.map((post) => (
-            //make this a Post component
             <Post key={post.id} {...post} />
           ))
         ) : (

@@ -36,6 +36,7 @@ const PostEdit = () => {
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
       // store the image in the browser local storage
+      // Adapted from Code Institute Moments walkthrough
       URL.revokeObjectURL(image);
       setPostData({
         ...postData,

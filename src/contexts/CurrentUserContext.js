@@ -16,8 +16,6 @@ export const CurrentUserProvider = ({ children }) => {
 
   const handleMount = async () => {
     try {
-      //const { data } = await axiosRes.get("dj-rest-auth/user/");
-      //setCurrentUser(data);
       await axiosRes.get("dj-rest-auth/user/").then((response) => setCurrentUser(response.data));
       console.log("got user");
     } catch (err) {
@@ -56,8 +54,6 @@ export const CurrentUserProvider = ({ children }) => {
       }
     );
 
-    // use<AxiosResponse<any>>(onFulfilled?: ((value: AxiosResponse<any>) => AxiosResponse<any> | Promise<AxiosResponse<any>>) | undefined
-    //                          , onRejected?: (error: any) => any): number
     axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
