@@ -72,8 +72,7 @@ const AddPost = () => {
     }
   };
 
-  return (
-    currentUser ? (
+  return currentUser ? (
     <Row style={{ width: "100%" }}>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -142,10 +141,9 @@ const AddPost = () => {
         </Form>
       </Col>
       <Col md={1} lg={2}></Col>
-    </Row>)
-    : (
-      <NotExists/>
-    )
+    </Row>
+  ) : (
+    <NotExists />
   );
 };
 

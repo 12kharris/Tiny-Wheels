@@ -202,7 +202,7 @@ function Post(props) {
     <Card key={id} className={styles.post}>
       <Card.Header>
         <Row>
-          <Col style={{textAlign: "left"}}>
+          <Col style={{ textAlign: "left" }}>
             <Link to={`profiles/${OwnerProfileID}`}>
               <ProfilePreview
                 imageURL={OwnerProfileImage}
@@ -347,15 +347,17 @@ function Post(props) {
               <Link to={`/posts/${id}`}>
                 <i className="fa-regular fa-comment"></i> {Comments_count}
               </Link>
-              
+
               {currentUser?.pk && !addComment && showComments && (
-                <span style={{textAlign: "right"}}><Button
-                  onClick={() => {
-                    setAddComment(!addComment);
-                  }}
-                >
-                  Add comment
-                </Button></span>
+                <span style={{ textAlign: "right" }}>
+                  <Button
+                    onClick={() => {
+                      setAddComment(!addComment);
+                    }}
+                  >
+                    Add comment
+                  </Button>
+                </span>
               )}
             </Col>
           </Row>
@@ -372,7 +374,7 @@ function Post(props) {
           ></Form.Control>
           <Form.Group>
             <Row>
-              <Col xs={8} style={{paddingRight: "0px"}}>
+              <Col xs={8} style={{ paddingRight: "0px" }}>
                 <Form.Control
                   type="text"
                   value={commentFormData.Content}
@@ -381,12 +383,12 @@ function Post(props) {
                   onChange={handleCommentChange}
                 ></Form.Control>
                 {errors.Content?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
+                  <Alert key={idx} variant="warning">
+                    {message}
+                  </Alert>
+                ))}
               </Col>
-              <Col xs={1} style={{paddingLeft: "0px"}}>
+              <Col xs={1} style={{ paddingLeft: "0px" }}>
                 <Button variant="success" type="submit">
                   Add
                 </Button>

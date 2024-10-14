@@ -41,8 +41,7 @@ const Followers = (props) => {
     }
   };
 
-  return (
-    currentUser ? (
+  return currentUser ? (
     <Row>
       <Col xs={2}>
         <Button
@@ -79,7 +78,6 @@ const Followers = (props) => {
                       : p.FollowingUser
                   }
                   height={50}
-
                 />
               </Link>
             )
@@ -93,9 +91,8 @@ const Followers = (props) => {
 
       <Col xs={2}></Col>
     </Row>
-    ) : (
-      <NotExists/>
-    )
+  ) : (
+    <NotExists />
   );
 };
 

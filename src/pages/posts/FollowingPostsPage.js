@@ -27,24 +27,20 @@ const FollowingPostsPage = () => {
     getFollowedPosts();
   }, [currentUser]);
 
-  return (
-    currentUser ? (
+  return currentUser ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
         {posts?.length > 0 ? (
-          posts.map((post) => (
-            <Post key={post.id} {...post} />
-          ))
+          posts.map((post) => <Post key={post.id} {...post} />)
         ) : (
           <p>No Results</p>
         )}
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
-    ) : (
-      <NotExists />
-    )
+  ) : (
+    <NotExists />
   );
 };
 

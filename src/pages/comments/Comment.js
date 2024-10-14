@@ -82,7 +82,7 @@ const Comment = (props) => {
   };
 
   return (
-    <Row style={{alignItems: "center"}}>
+    <Row style={{ alignItems: "center" }}>
       <Col md={2} className={styles.lesspadding}>
         <Link to={`profiles/${OwnerProfileID}`}>
           <ProfilePreview
@@ -101,7 +101,7 @@ const Comment = (props) => {
           <Row>
             <Col className={styles.lesspadding}>
               <Form onSubmit={handleSubmit}>
-                <Row >
+                <Row>
                   <Col className={styles.lesspadding}>
                     <Form.Control
                       type="text"
@@ -139,7 +139,7 @@ const Comment = (props) => {
           </Row>
         ) : (
           <Row className={styles.contentholder}>
-            <Col style={{textAlign: "left"}} className={styles.lesspadding}>
+            <Col style={{ textAlign: "left" }} className={styles.lesspadding}>
               {commentData.Content}
             </Col>
             {currentUser?.username == Username && (

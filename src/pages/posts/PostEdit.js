@@ -94,8 +94,7 @@ const PostEdit = () => {
     getTags();
   }, [id, currentUser]);
 
-  return (
-    currentUser && currentUser?.username == postData.OwnerUsername ? (
+  return currentUser && currentUser?.username == postData.OwnerUsername ? (
     <Row style={{ width: "100%" }}>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -127,8 +126,10 @@ const PostEdit = () => {
           </Form.Group>
           <Form.Group>
             <div>
-              <p><Form.Label htmlFor="image-upload">Change Image</Form.Label></p>
-              <Image src={image} className={styles.img}/>
+              <p>
+                <Form.Label htmlFor="image-upload">Change Image</Form.Label>
+              </p>
+              <Image src={image} className={styles.img} />
             </div>
             <Form.File
               id="image-upload"
@@ -164,9 +165,8 @@ const PostEdit = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
-    ) : (
-      <NotExists />
-    )
+  ) : (
+    <NotExists />
   );
 };
 

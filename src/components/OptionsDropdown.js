@@ -6,9 +6,7 @@ export const OptionsDropdown = (props) => {
   const { handleEdit, handleDelete } = props;
 
   return (
-    <Dropdown
-      style={{ fontSize: "30px" }}
-    >
+    <Dropdown style={{ fontSize: "30px" }}>
       <Dropdown.Toggle>
         <span className={styles.icon}>
           <i className="fa-solid fa-bars"></i>

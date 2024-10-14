@@ -57,12 +57,11 @@ const EditProfile = () => {
     formData.append("Name", profile.Name);
 
     try {
-        await axiosReq.put(`/profiles/${id}/`, formData);
-        history.push(`/profiles/${id}`);
-    }
-    catch (err) {
-        console.log(err.response.data);
-        setErrors(err.response?.data);
+      await axiosReq.put(`/profiles/${id}/`, formData);
+      history.push(`/profiles/${id}`);
+    } catch (err) {
+      console.log(err.response.data);
+      setErrors(err.response?.data);
     }
   };
 

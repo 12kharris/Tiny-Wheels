@@ -158,10 +158,12 @@ Using W3C
 
 ### CSS
 
+### Javascript and JSX
+The JSHint validator is unable to assess the validity of JSX code. However, the Prettier code formatter automatically adds any missing semicolons to javascript experessions.
 
+### Formatting
+All files were formatted using the Prettier code formatter for consistency.
 
-### Javascript
-Using JSHint
 
 ## Known Issues
 

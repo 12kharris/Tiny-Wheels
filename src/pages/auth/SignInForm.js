@@ -46,10 +46,11 @@ const SignInForm = () => {
       <Col>
         <h3>Sign into your Tiny Wheels account</h3>
         {errors.non_field_errors?.map((message, idx) => (
-            <Alert key={idx} variant="warning">
-              {message}
-            </Alert>))}
-        <Form onSubmit={handleSubmit} style={{marginTop: "40px"}}>
+          <Alert key={idx} variant="warning">
+            {message}
+          </Alert>
+        ))}
+        <Form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
           <Form.Group controlId="username">
             <Row>
               <Col md={3}>

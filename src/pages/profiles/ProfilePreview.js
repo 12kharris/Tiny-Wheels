@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
 
-const ProfilePreview = ({imageURL, text, height, width}) => {
-
+const ProfilePreview = ({ imageURL, text, height, width }) => {
   return (
-    <span style={{width: width ? width : height}}>
+    <span style={{ width: width ? width : height }}>
       <img
         src={imageURL}
         height={height}
@@ -12,7 +11,7 @@ const ProfilePreview = ({imageURL, text, height, width}) => {
       ></img>
       {text}
     </span>
-  )
-}
+  );
+};
 
-export default ProfilePreview
+export default ProfilePreview;

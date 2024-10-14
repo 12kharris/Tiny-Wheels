@@ -22,9 +22,10 @@ const PostsPage = () => {
         if (currentTag == "") {
           const { data } = await axiosRes.get(`/posts/?search=${searchTerm}`);
           setPosts(data);
-        }
-        else {
-          const { data } = await axiosRes.get(`/posts/?Profile__User__username=&Profile__FollowedProfile__FollowingProfile=&Tag=${currentTag}`);
+        } else {
+          const { data } = await axiosRes.get(
+            `/posts/?Profile__User__username=&Profile__FollowedProfile__FollowingProfile=&Tag=${currentTag}`
+          );
           setPosts(data);
         }
       } catch (err) {
@@ -58,20 +59,28 @@ const PostsPage = () => {
           <hr></hr>
           <div style={{ textAlign: "left" }}>
             <ul>
-              {tags?.map((tag) => (
-                tag.TagName != "No tag" && <li key={tag.id} className={styles.tag}>
-                  <span
-                    onClick={() => {
-                      currentTag == tag.id ? setCurrentTag("") : setCurrentTag(tag.id);
-                      setSearchTerm("");
-                    }}
-                    className={styles.tagitem}
-                    style={{backgroundColor: currentTag == tag.id ? `${tag.Colour}` : ""}}
-                  >
-                    {tag.TagName}
-                  </span>
-                </li>
-              ))}
+              {tags?.map(
+                (tag) =>
+                  tag.TagName != "No tag" && (
+                    <li key={tag.id} className={styles.tag}>
+                      <span
+                        onClick={() => {
+                          currentTag == tag.id
+                            ? setCurrentTag("")
+                            : setCurrentTag(tag.id);
+                          setSearchTerm("");
+                        }}
+                        className={styles.tagitem}
+                        style={{
+                          backgroundColor:
+                            currentTag == tag.id ? `${tag.Colour}` : "",
+                        }}
+                      >
+                        {tag.TagName}
+                      </span>
+                    </li>
+                  )
+              )}
             </ul>
           </div>
         </div>
@@ -79,7 +88,7 @@ const PostsPage = () => {
       <Col className={styles.posts}>
         <Form>
           <Form.Control
-            disabled = {currentTag != ""}
+            disabled={currentTag != ""}
             type="text"
             placeholder="Search..."
             value={searchTerm}

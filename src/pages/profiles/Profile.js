@@ -58,14 +58,17 @@ export function Profile(props) {
         setFollowed(data);
       }
       if (OwnerUser) {
-        const {data} = await axiosReq.get(`/followers/?FollowingProfile__User=${OwnerUser}&FollowedProfile__id=`);
+        const { data } = await axiosReq.get(
+          `/followers/?FollowingProfile__User=${OwnerUser}&FollowedProfile__id=`
+        );
         setFollowing(data);
       }
       if (id) {
-        const {data} = await axiosReq.get(`/followers/?FollowingProfile__User=&FollowedProfile__id=${id}`);     
+        const { data } = await axiosReq.get(
+          `/followers/?FollowingProfile__User=&FollowedProfile__id=${id}`
+        );
         setFollowers(data);
       }
-      
     } catch (err) {
       console.log(err);
     }
@@ -101,12 +104,14 @@ export function Profile(props) {
       <Row>
         <Col md={4}>
           <div className={styles.img_holder}>
-            <Image src={ProfileImage} className={styles.img} rounded/>
+            <Image src={ProfileImage} className={styles.img} rounded />
           </div>
         </Col>
 
         <Col className={styles.contentholder}>
-          <p><strong style={{fontSize: "25px"}}>{OwnerUsername}</strong></p>
+          <p>
+            <strong style={{ fontSize: "25px" }}>{OwnerUsername}</strong>
+          </p>
           <p>{Name}</p>
           <p>Joined: {Created_at}</p>
           <p>
@@ -131,11 +136,18 @@ export function Profile(props) {
         <Col>
           <Row>
             <Col>
-              <Link className={styles.followlink} to={`/followers/${id}`}>Followers</Link>
+              <Link className={styles.followlink} to={`/followers/${id}`}>
+                Followers
+              </Link>
               <p className={styles.count}>{followers.length}</p>
             </Col>
             <Col>
-              <Link className={styles.followlink} to={`/following/${OwnerUser}`}>Following</Link>
+              <Link
+                className={styles.followlink}
+                to={`/following/${OwnerUser}`}
+              >
+                Following
+              </Link>
               <p className={styles.count}>{following.length}</p>
             </Col>
           </Row>

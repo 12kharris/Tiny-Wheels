@@ -100,8 +100,7 @@ const EditCollectionItem = () => {
     }
   };
 
-  return (
-    currentUser && currentUser.username == itemData?.Owner ? (
+  return currentUser && currentUser.username == itemData?.Owner ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -149,10 +148,12 @@ const EditCollectionItem = () => {
           </Form.Group>
           <Form.Group>
             <div>
-            <p><Form.Label htmlFor="image-upload">Change Image</Form.Label></p>
-            <Image src={itemData.Image} className={styles.img}/>
+              <p>
+                <Form.Label htmlFor="image-upload">Change Image</Form.Label>
+              </p>
+              <Image src={itemData.Image} className={styles.img} />
             </div>
-            
+
             <Form.File
               id="image-upload"
               accept="image/*"
@@ -170,16 +171,19 @@ const EditCollectionItem = () => {
           <Button type="submit" variant="success" className={styles.button}>
             Save
           </Button>
-          <Button onClick={handleDelete} variant="danger" className={styles.button}>
+          <Button
+            onClick={handleDelete}
+            variant="danger"
+            className={styles.button}
+          >
             Delete
           </Button>
         </Form>
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
-    ) : (
-      <NotExists />
-    )
+  ) : (
+    <NotExists />
   );
 };
 
