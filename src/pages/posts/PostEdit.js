@@ -61,7 +61,6 @@ const PostEdit = () => {
       await axiosReq.put(`/posts/${id}/`, formData);
       history.push(`/posts/${id}`);
     } catch (err) {
-      console.log(err.response.data);
       setErrors(err.response?.data);
     }
   };
@@ -79,17 +78,13 @@ const PostEdit = () => {
           TagColour: data.TagColour,
           OwnerUsername: data.OwnerUsername,
         });
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     const getTags = async () => {
       try {
         const { data } = await axiosReq.get("/tags/");
         setTags(data);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     getPostData();
     getTags();
@@ -130,7 +125,7 @@ const PostEdit = () => {
               <p>
                 <Form.Label htmlFor="image-upload">Change Image</Form.Label>
               </p>
-              <Image src={image} className={styles.img} alt="image"/>
+              <Image src={image} className={styles.img} alt="image" />
             </div>
             <Form.File
               id="image-upload"

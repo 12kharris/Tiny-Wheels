@@ -29,9 +29,7 @@ const AddCollectionItem = () => {
         ...collectionItemFormData,
         Series: data[0].id,
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleChangeImage = (event) => {
@@ -65,7 +63,6 @@ const AddCollectionItem = () => {
       await axiosReq.post("/collections/items/", formData);
       history.push(`/collection/${id}`);
     } catch (err) {
-      console.log(err?.response.data);
       setErrors(err.response?.data);
     }
   };
@@ -121,7 +118,7 @@ const AddCollectionItem = () => {
                 <p>
                   <Form.Label htmlFor="image-upload">Change Image</Form.Label>
                 </p>
-                <Image src={image} className={styles.img} alt="image"/>
+                <Image src={image} className={styles.img} alt="image" />
               </div>
             ) : (
               <Form.Label htmlFor="image-upload">Upload an image</Form.Label>

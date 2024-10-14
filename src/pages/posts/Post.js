@@ -63,9 +63,7 @@ function Post(props) {
       try {
         const { data } = await axiosRes.get(`/comments/?Post=${id}`);
         setComments(data);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   };
 
@@ -77,9 +75,7 @@ function Post(props) {
     try {
       await axiosRes.delete(`/posts/${id}`);
       history.push(`/profiles/${currentUser?.profile_id}`);
-    } catch (err) {
-      console.log(err.response?.data);
-    }
+    } catch (err) {}
   };
 
   const handleLike = async () => {
@@ -100,9 +96,7 @@ function Post(props) {
             : post;
         })
       );
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUnLike = async () => {
@@ -120,9 +114,7 @@ function Post(props) {
             : post;
         })
       );
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleDislike = async () => {
@@ -143,9 +135,7 @@ function Post(props) {
             : post;
         })
       );
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUnDislike = async () => {
@@ -164,9 +154,7 @@ function Post(props) {
           })
         );
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleCommentChange = (event) => {
@@ -187,7 +175,6 @@ function Post(props) {
       setAddComment(false);
       setComments((prevComments) => [...prevComments, data]);
     } catch (err) {
-      console.log(err.response.data);
       setErrors(err.response?.data);
     }
   };
@@ -220,7 +207,11 @@ function Post(props) {
         <Card.Text className={styles.caption}>{Caption}</Card.Text>
         <div className={styles.img_holder}>
           <Link to={`/posts/${id}`}>
-            <Card.Img src={Image} className={styles.img} alt="post image"></Card.Img>
+            <Card.Img
+              src={Image}
+              className={styles.img}
+              alt="post image"
+            ></Card.Img>
           </Link>
         </div>
       </Card.Body>

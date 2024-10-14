@@ -29,9 +29,7 @@ const AddPost = () => {
           ...postFormData,
           Tag: data[0].id,
         });
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     getTags();
   }, [currentUser]);
@@ -67,7 +65,6 @@ const AddPost = () => {
       await axiosReq.post("/posts/", formData);
       history.push("/");
     } catch (err) {
-      console.log(err.response.data);
       setErrors(err.response?.data);
     }
   };
@@ -108,7 +105,7 @@ const AddPost = () => {
                 <p>
                   <Form.Label htmlFor="image-upload">Change Image</Form.Label>
                 </p>
-                <Image src={image} className={styles.img} alt="image"/>
+                <Image src={image} className={styles.img} alt="image" />
               </div>
             ) : (
               <Form.Label htmlFor="image-upload">Upload an image</Form.Label>

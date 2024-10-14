@@ -22,9 +22,7 @@ const CollectionPage = () => {
         const { data } = await axiosRes.get(`/collections/?id=${id}`);
         setCollection(data);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getCollectionItems = async () => {
@@ -33,9 +31,7 @@ const CollectionPage = () => {
         const { data } = await axiosRes.get(`/collections/${id}/`);
         setCollectionItems(data);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

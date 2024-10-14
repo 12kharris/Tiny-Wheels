@@ -13,16 +13,12 @@ const FollowingPostsPage = () => {
     const getFollowedPosts = async () => {
       try {
         if (currentUser) {
-          console.log(`current user: ${currentUser.profile_id}`);
           const { data } = await axiosRes.get(
             `/posts/?Profile__FollowedProfile__FollowingProfile=${currentUser?.profile_id}`
           );
-          console.log(data);
           setPosts(data);
         }
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     getFollowedPosts();
   }, [currentUser]);

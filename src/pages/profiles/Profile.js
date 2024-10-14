@@ -42,9 +42,7 @@ export function Profile(props) {
         );
         setPosts(data);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const fetchFollowed = async () => {
@@ -67,9 +65,7 @@ export function Profile(props) {
         );
         setFollowers(data);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleFollow = async () => {
@@ -82,9 +78,7 @@ export function Profile(props) {
         .then(() => {
           fetchFollowed();
         });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUnFollow = async () => {
@@ -92,9 +86,7 @@ export function Profile(props) {
       await axiosRes.delete(`/followers/${followed[0].id}`).then(() => {
         fetchFollowed();
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
@@ -102,7 +94,12 @@ export function Profile(props) {
       <Row>
         <Col md={4}>
           <div className={styles.img_holder}>
-            <Image src={ProfileImage} className={styles.img} rounded alt="profile image"/>
+            <Image
+              src={ProfileImage}
+              className={styles.img}
+              rounded
+              alt="profile image"
+            />
           </div>
         </Col>
 

@@ -11,9 +11,7 @@ const Popular = () => {
     try {
       const { data } = await axiosReq.get("/posts/?ordering=-Likes_count");
       setPosts(data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {

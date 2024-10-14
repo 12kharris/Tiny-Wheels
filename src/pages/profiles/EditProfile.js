@@ -22,9 +22,7 @@ const EditProfile = () => {
       try {
         const { data } = await axiosReq.get(`/profiles/${id}`);
         setProfile(data);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     getProfile();
   }, [currentUser, currentUser?.profile_id, id]);
@@ -60,7 +58,6 @@ const EditProfile = () => {
       await axiosReq.put(`/profiles/${id}/`, formData);
       history.push(`/profiles/${id}`);
     } catch (err) {
-      console.log(err.response.data);
       setErrors(err.response?.data);
     }
   };

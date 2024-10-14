@@ -14,9 +14,7 @@ const PostDetail = () => {
         try {
           const { data } = await axiosRes.get(`/posts/${id}/`);
           setPost(data);
-        } catch (err) {
-          console.log(err);
-        }
+        } catch (err) {}
       }
     };
     getPostData();

@@ -26,9 +26,7 @@ const PostsPage = () => {
           );
           setPosts(data);
         }
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
     // dont want to send a query every time we make a key stroke. Wait 1 second to do so
     const time = setTimeout(() => {
@@ -43,9 +41,7 @@ const PostsPage = () => {
     try {
       const { data } = await axiosReq.get("/tags/");
       setTags(data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

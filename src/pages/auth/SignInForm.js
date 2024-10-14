@@ -36,13 +36,11 @@ const SignInForm = () => {
       setCurrentUser(data.user);
       history.push("/");
     } catch (err) {
-      console.log(err.response.data);
       setErrors(err.response?.data);
     }
   };
 
-  return (
-    !currentUser ? (
+  return !currentUser ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -101,9 +99,8 @@ const SignInForm = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
-    ) : (
-      <NotExists/>
-    )
+  ) : (
+    <NotExists />
   );
 };
 

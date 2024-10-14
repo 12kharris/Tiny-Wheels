@@ -36,9 +36,7 @@ const Followers = (props) => {
           setProfiles(data);
         }
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return currentUser ? (

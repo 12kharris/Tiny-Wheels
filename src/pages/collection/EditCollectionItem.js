@@ -31,9 +31,7 @@ const EditCollectionItem = () => {
       try {
         const { data } = await axiosReq.get(`collections/item/${id}/`);
         setItemData(data);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   };
 
@@ -41,9 +39,7 @@ const EditCollectionItem = () => {
     try {
       const { data } = await axiosRes.get("/series/");
       setSeries(data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleChangeImage = (event) => {
@@ -69,9 +65,7 @@ const EditCollectionItem = () => {
     try {
       await axiosRes.delete(`/collections/item/${id}/`);
       history.goBack();
-    } catch (err) {
-      console.log(err.response.data);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -95,7 +89,6 @@ const EditCollectionItem = () => {
       await axiosReq.put(`/collections/item/${id}`, formData);
       history.goBack();
     } catch (err) {
-      console.log(err?.response.data);
       setErrors(err.response?.data);
     }
   };
@@ -151,7 +144,7 @@ const EditCollectionItem = () => {
               <p>
                 <Form.Label htmlFor="image-upload">Change Image</Form.Label>
               </p>
-              <Image src={itemData.Image} className={styles.img} alt="image"/>
+              <Image src={itemData.Image} className={styles.img} alt="image" />
             </div>
 
             <Form.File

@@ -38,9 +38,7 @@ const Comment = (props) => {
             Post: data.Post,
             Content: data.Content,
           });
-        } catch (err) {
-          console.log(err);
-        }
+        } catch (err) {}
       }
     };
     getCommentData();
@@ -64,7 +62,6 @@ const Comment = (props) => {
         setEdit(false);
       });
     } catch (err) {
-      console.log(err.response?.data);
       setErrors(err.response?.data);
     }
   };
@@ -74,9 +71,7 @@ const Comment = (props) => {
       await axiosReq.delete(`/comments/${id}`).then(() => {
         getComments();
       });
-    } catch (err) {
-      console.log(err.response.data);
-    }
+    } catch (err) {}
   };
 
   return (
