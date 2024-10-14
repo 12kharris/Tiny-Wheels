@@ -31,6 +31,8 @@ Before development, planning of the look of the application and the key pages wa
 ![Posts](https://res.cloudinary.com/da2ant1dk/image/upload/v1728850581/media/images/oeu9mchftuclszjo6mrj.png)
 ![Collection](https://res.cloudinary.com/da2ant1dk/image/upload/v1728850580/media/images/pclavllqtljtl0gxnrte.png)
 
+The dark navy colour was chosen as the theme as it has a clean look and is also sophisticated, indicating that this is a serious platform.
+
 
 ### User Stories
 The development process was broken down into sprints containing various user tasks. This was originally done on Azure DevOps but was switched to GitHub projects midway through development. Below are links to both boards. Each work item is associated to a sprint/iteration.
@@ -76,7 +78,7 @@ A logged in user to use the Add Post link to create a new post. This page contai
 ![Add post](https://res.cloudinary.com/da2ant1dk/image/upload/v1728929284/add_post_ggebbr.png)
 
 ### Edit post
-A user who owns a post has the ability to edit the post. This is provided in a dropdown that only appears on a post the user owns. When the edit option is clicked, the user is taken to a page where they can edit a form and click save to edit the post.
+A user who owns a post has the ability to edit the post. This is provided in a dropdown that only appears on a post the user owns. When the edit option is clicked, the user is taken to a page where they can edit a form and click save to edit the post. A user is notified of the change to the data by the fact that they are re-routed and can see the newly updated post.
 
 ### Like or dislike a post
 Logged in users can like and dislike posts. They use the like and dilike icons on a post to do this. A user can like or dislike a post when the following criteria are met: They do not own the post, they are logged in, they have not liked or disliked the post already. If a user has liked or disliked the post, they can click the respective icon to unlike or undislike the post. If a user tries to like a dislike a post they own, an overlay message appears indicating why they are unable to do so.
@@ -107,6 +109,18 @@ When a user creates a post, they can choose to add a tag to the post which other
 
 ### Signing Out
 A logged in user can choose to sign out using the provided nav bar icon. When this is done, the user is logged out and they are returned to the 'New' page.
+
+## Reused Components
+### Post
+The Post displays a post content and any modification options. This component is utilised in 3 pages: the home (new) page, the popular page and in the Profile page to see a user's posts.
+### Comment
+The comment componenet is used in every post. It displays the content of a comment and any modification options if applicable.
+### ProfilePreview
+The ProfilePreview component shows a small preview of a profile. It displays the profile image and the username. It is used on posts, comments and in the following/followers pages.
+### OptionsDropdown
+This component is used on posts and comments when a user owns the object. It contains the Edit and Delete options
+### NotExists
+This component is re-used when a page can't be found or a user is unauthorised to be viewing the contents of a page
 
 
 ## Testing
@@ -161,15 +175,19 @@ Using W3C's HTML validator, all pages only had one error caused by the NavBar co
 All CSS returned no errors using the W3C CSS validator
 ![CSS valid](https://res.cloudinary.com/da2ant1dk/image/upload/v1728936100/css_valid_cypu9q.png)
 
-### Javascript and JSX
-The JSHint validator is unable to assess the validity of JSX code. However, the Prettier code formatter automatically adds any missing semicolons to javascript experessions.
+### ESLint warnings
+Some warnings are shown in the console by ESLint. These are not serious warnings. Most of them are caused by defining the function to be called in the useEffect hook outside of the hook. For some reason, when doing this, the compiler now thinks this function should be included in the dependency array of the hook. The other warnings are for using '==' instead of '==='. This was done as I am not certain that what is returned from the API will always be the same object type as what I am expecting. None of these warnings affect the deployed app.
 
 ### Formatting
 All files were formatted using the Prettier code formatter for consistency.
 
 
 ## Known Issues
-Occasionally, the button to edit a post does not work when first clicked but often works after waiting a few seconds. This is not a serious bug and does not break the application.
+- Occasionally, the button to edit a post does not work when first clicked but often works after waiting a few seconds. This is not a serious bug and does not break the application.
+- If a user stays signed in but comes back after some time, the navbar will still show logged in status but the user is not recognised as an owner of any objects
+- The 'New' navlink always has the active style with an underline
+- On the Profile page, a user can like or dislike a post but this change is not reflected on the page unless refreshed
+
 
 ## Problems encountered
 - The tag was designed to be optional and can be blank in the database. However when submitting the form, an absent tag on post creation kept being turned into an empty string which was failing the post request. To get around this, new tag of "No tag" has been made and logic around it so it won't display. 

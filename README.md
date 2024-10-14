@@ -186,6 +186,7 @@ All files were formatted using the Prettier code formatter for consistency.
 - Occasionally, the button to edit a post does not work when first clicked but often works after waiting a few seconds. This is not a serious bug and does not break the application.
 - If a user stays signed in but comes back after some time, the navbar will still show logged in status but the user is not recognised as an owner of any objects
 - The 'New' navlink always has the active style with an underline
+- On the Profile page, a user can like or dislike a post but this change is not reflected on the page unless refreshed
 
 
 ## Problems encountered
