@@ -63,60 +63,70 @@ const EditProfile = () => {
   };
 
   return profile?.id && profile?.OwnerUsername == currentUser?.username ? (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col className={styles.formcontrols}>
-          <Form.Group>
-            <Form.Label htmlFor="image-upload">Change Image</Form.Label>
-            <Image src={profile?.ProfileImage} />
-            <Form.File
-              id="image-upload"
-              accept="image/*"
-              name="ProfileImage"
-              ref={imageInput}
-              onChange={handleChangeImage}
-            ></Form.File>
-            {errors.ProfileImage?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                Please provide a valid image (height and width less than 4096
-                px)
-              </Alert>
-            ))}
-          </Form.Group>
-        </Col>
-        <Col md={8} className={styles.formcontrols}>
-          <Form.Group>
-            <Row>
-              <Col xs={2}>
-                <Form.Label>Name</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="text"
-                  name="Name"
-                  id="Name"
-                  value={profile.Name}
-                  placeholder="Add a name"
-                  onChange={handleChange}
-                ></Form.Control>
-              </Col>
-            </Row>
-          </Form.Group>
-        </Col>
-      </Row>
-      <Button
-        onClick={() => {
-          history.goBack();
-        }}
-        variant="danger"
-        style={{ marginRight: "20px" }}
-      >
-        Cancel
-      </Button>
-      <Button type="submit" variant="success">
-        Save
-      </Button>
-    </Form>
+    <Row>
+      <Col md={1} lg={2}></Col>
+      <Col>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col className={styles.formcontrols}>
+              <Form.Group>
+                <div>
+                  <p>
+                    <Form.Label htmlFor="image-upload">Change Image</Form.Label>
+                  </p>
+                  <Image src={profile?.ProfileImage} className={styles.img} />
+                </div>
+                <Form.File
+                  id="image-upload"
+                  accept="image/*"
+                  name="ProfileImage"
+                  ref={imageInput}
+                  onChange={handleChangeImage}
+                ></Form.File>
+                {errors.ProfileImage?.map((message, idx) => (
+                  <Alert key={idx} variant="warning">
+                    Please provide a valid image (height and width less than
+                    4096 px)
+                  </Alert>
+                ))}
+              </Form.Group>
+            </Col>
+            <Col md={8} className={styles.formcontrols}>
+              <Form.Group>
+                <Row>
+                  <Col xs={2}>
+                    <Form.Label>Name</Form.Label>
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      type="text"
+                      name="Name"
+                      id="Name"
+                      value={profile.Name}
+                      placeholder="Add a name"
+                      onChange={handleChange}
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Button
+            onClick={() => {
+              history.goBack();
+            }}
+            variant="danger"
+            style={{ marginRight: "20px" }}
+          >
+            Cancel
+          </Button>
+          <Button type="submit" variant="success">
+            Save
+          </Button>
+        </Form>
+      </Col>
+      <Col md={1} lg={2}></Col>
+    </Row>
   ) : (
     <NotExists />
   );
