@@ -65,7 +65,7 @@ const AddPost = () => {
 
     try {
       await axiosReq.post("/posts/", formData);
-      history.push("/new/");
+      history.push("/");
     } catch (err) {
       console.log(err.response.data);
       setErrors(err.response?.data);

@@ -77,6 +77,7 @@ const PostEdit = () => {
           Tag: data.Tag,
           TagName: data.TagName,
           TagColour: data.TagColour,
+          OwnerUsername: data.OwnerUsername,
         });
       } catch (err) {
         console.log(err);
@@ -94,7 +95,7 @@ const PostEdit = () => {
     getTags();
   }, [id, currentUser]);
 
-  return currentUser && currentUser?.username == postData.OwnerUsername ? (
+  return currentUser && currentUser?.username == postData?.OwnerUsername ? (
     <Row style={{ width: "100%" }}>
       <Col md={1} lg={2}></Col>
       <Col>

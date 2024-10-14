@@ -69,7 +69,7 @@ function NavBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <Nav className={styles.navlinks}>
-          <NavLink to="/new" activeClassName={styles.active}>
+          <NavLink to="/" activeClassName={styles.active}>
             <i className="fa-regular fa-clock"></i> New
           </NavLink>
           <NavLink to="/posts/popular" activeClassName={styles.active}>

@@ -34,7 +34,7 @@ function App() {
             path="/profiles/:id/edit"
             render={() => <EditProfile />}
           />
-          <Route exact path="/new" render={() => <PostsPage />} />
+          <Route exact path="/" render={() => <PostsPage />} />
           <Route
             exact
             path="/following"
