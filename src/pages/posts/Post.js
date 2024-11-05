@@ -41,6 +41,8 @@ function Post(props) {
   const currentUser = useCurrentUser();
   const history = useHistory();
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [dislikes, setDislikes] = useState([]);
   const [addComment, setAddComment] = useState(false);
   const [commentFormData, setCommentFormData] = useState({
     Post: null,
@@ -51,6 +53,8 @@ function Post(props) {
   useEffect(() => {
     if (id) {
       getComments();
+      getLikes();
+      getDislikes();
       setCommentFormData({
         Post: id,
         Content: "",
@@ -66,6 +70,28 @@ function Post(props) {
       } catch (err) {}
     }
   };
+
+  const getLikes = async () => {
+    if (id)
+    {
+      try {
+        const {data} = await axiosRes.get(`/likes/?Post=${id}&IsLike=true`);
+        setLikes(data);
+      }
+      catch (err) {}
+    }
+  }
+
+  const getDislikes = async () => {
+    if (id)
+    {
+      try {
+        const {data} = await axiosRes.get(`/likes/?Post=${id}&IsLike=false`);
+        setDislikes(data);
+      }
+      catch (err) {}
+    }
+  }
 
   const handleEdit = () => {
     history.push(`/posts/${id}/edit`);
@@ -174,6 +200,9 @@ function Post(props) {
       const { data } = await axiosReq.post("/comments/", formData);
       setAddComment(false);
       setComments((prevComments) => [...prevComments, data]);
+      setCommentFormData({
+        Post: id,
+        Content: "",})
     } catch (err) {
       setErrors(err.response?.data);
     }
@@ -184,7 +213,7 @@ function Post(props) {
       <Card.Header>
         <Row>
           <Col style={{ textAlign: "left" }}>
-            <Link to={`profiles/${OwnerProfileID}`}>
+            <Link to={`/profiles/${OwnerProfileID}`}>
               <ProfilePreview
                 imageURL={OwnerProfileImage}
                 text={OwnerProfile?.Length > 0 ? OwnerProfile : OwnerUsername}
@@ -223,12 +252,12 @@ function Post(props) {
                 <Row>
                   <Col xs={3}>
                     <span onClick={handleUnLike} className={styles.liked}>
-                      {Likes_count} <i className="fa-solid fa-thumbs-up"></i>
+                      {likes.length} <i className="fa-solid fa-thumbs-up"></i>
                     </span>
                   </Col>
                   <Col style={{ textAlign: "left" }}>
                     <span className={styles.thumbsdown}>
-                      {Dislikes_count}{" "}
+                      {dislikes.length}{" "}
                       <i className="fa-regular fa-thumbs-down"></i>
                     </span>
                   </Col>
@@ -239,13 +268,13 @@ function Post(props) {
                 <Row>
                   <Col xs={3}>
                     <span className={styles.thumbsup}>
-                      {Likes_count}
+                      {likes.length}
                       <i className="fa-regular fa-thumbs-up"></i>
                     </span>
                   </Col>
                   <Col style={{ textAlign: "left" }}>
                     <span onClick={handleUnDislike} className={styles.disliked}>
-                      {Dislikes_count}{" "}
+                      {dislikes.length}{" "}
                       <i className="fa-solid fa-thumbs-down"></i>
                     </span>
                   </Col>
@@ -260,7 +289,7 @@ function Post(props) {
                       overlay={<Tooltip>You can't like your own post</Tooltip>}
                     >
                       <span className={styles.thumbsup}>
-                        {Likes_count}
+                        {likes.length}
                         <i className="fa-regular fa-thumbs-up"></i>
                       </span>
                     </OverlayTrigger>
@@ -273,7 +302,7 @@ function Post(props) {
                       }
                     >
                       <span className={styles.thumbsdown}>
-                        {Dislikes_count}
+                        {dislikes.length}
                         <i className="fa-regular fa-thumbs-down"></i>
                       </span>
                     </OverlayTrigger>
@@ -285,13 +314,13 @@ function Post(props) {
                 <Row>
                   <Col xs={3}>
                     <span onClick={handleLike} className={styles.thumbsup}>
-                      {Likes_count}
+                      {likes.length}
                       <i className="fa-regular fa-thumbs-up"></i>
                     </span>
                   </Col>
                   <Col style={{ textAlign: "left" }}>
                     <span onClick={handleDislike} className={styles.thumbsdown}>
-                      {Dislikes_count}
+                      {dislikes.length}
                       <i className="fa-regular fa-thumbs-down"></i>
                     </span>
                   </Col>
@@ -306,7 +335,7 @@ function Post(props) {
                       overlay={<Tooltip>Log in to like a post</Tooltip>}
                     >
                       <span className={styles.thumbsup}>
-                        {Likes_count}{" "}
+                        {likes.length}{" "}
                         <i className="fa-regular fa-thumbs-up"></i>
                       </span>
                     </OverlayTrigger>
@@ -317,7 +346,7 @@ function Post(props) {
                       overlay={<Tooltip>Log in to dislike a post</Tooltip>}
                     >
                       <span className={styles.thumbsdown}>
-                        {Dislikes_count}{" "}
+                        {dislikes.length}{" "}
                         <i className="fa-regular fa-thumbs-down"></i>
                       </span>
                     </OverlayTrigger>
@@ -327,7 +356,7 @@ function Post(props) {
             )}
             <Col>
               <Link to={`/posts/${id}`}>
-                <i className="fa-regular fa-comment"></i> {Comments_count}
+                <i className="fa-regular fa-comment"></i> {comments.length}
               </Link>
 
               {currentUser?.pk && !addComment && showComments && (
