@@ -59,7 +59,16 @@ function NavBar() {
   );
 
   return (
-    <Navbar expand="md" expanded={expanded} onClick={() => {setExpanded(!expanded)}} fixed="top" variant="dark" className={styles.nav}>
+    <Navbar
+      expand="md"
+      expanded={expanded}
+      onClick={() => {
+        window.innerWidth < 768 ? setExpanded(!expanded) : setExpanded(false);
+      }}
+      fixed="top"
+      variant="dark"
+      className={styles.nav}
+    >
       <NavLink to="/">
         <NavbarBrand>
           <span id="logo">Tiny Wheels</span>
