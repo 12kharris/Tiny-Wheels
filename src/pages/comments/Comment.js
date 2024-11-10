@@ -58,7 +58,7 @@ const Comment = (props) => {
     formData.append("Content", commentData.Content);
 
     try {
-      await axiosReq.put(`/comments/${id}`, formData).then(() => {
+      await axiosRes.put(`/comments/${id}`, formData).then(() => {
         setEdit(false);
       });
     } catch (err) {

@@ -63,7 +63,7 @@ const AddCollectionItem = () => {
     formData.append("Image", imageInput.current.files[0]);
 
     try {
-      await axiosReq.post("/collections/items/", formData);
+      await axiosRes.post("/collections/items/", formData);
       history.push(`/collection/${id}`);
     } catch (err) {
       setErrors(err.response?.data);
