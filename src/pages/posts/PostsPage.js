@@ -46,10 +46,12 @@ const PostsPage = () => {
     } catch (err) {}
   };
 
+  console.log(window.innerWidth);
+
   return (
     <Row>
       <Col xs={1}></Col>
-      <Col md={1} lg={2}>
+      <Col md={0} lg={2}>
         <div className={styles.tagsholder}>
           <h4>Filter by tag</h4>
           <hr></hr>
@@ -93,13 +95,40 @@ const PostsPage = () => {
             }}
           ></Form.Control>
         </Form>
+
+        <div className={styles.tagsholdersm}>
+          <h4>Filter by tag</h4>
+          <div style={{ textAlign: "center" }}>
+            <Row>
+              {tags?.map(
+                (tag) =>
+                  tag.TagName != "No tag" && (
+                    <Col key={tag.id} className={styles.tag}>
+                      <span
+                        onClick={() => {
+                          currentTag == tag.id
+                            ? setCurrentTag("")
+                            : setCurrentTag(tag.id);
+                          setSearchTerm("");
+                        }}
+                        className={styles.tagitem}
+                        style={{
+                          backgroundColor:
+                            currentTag == tag.id ? `${tag.Colour}` : "",
+                        }}
+                      >
+                        {tag.TagName}
+                      </span>
+                    </Col>
+                  )
+              )}
+            </Row>
+          </div>
+        </div>
+
         {posts?.length > 0 ? (
           posts.map((post) => (
-            <Post
-              key={post.id}
-              {...post}
-              setPosts={setPosts}
-            />
+            <Post key={post.id} {...post} setPosts={setPosts} />
           ))
         ) : (
           <p>No Results</p>

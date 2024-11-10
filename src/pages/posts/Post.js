@@ -221,7 +221,7 @@ function Post(props) {
               />
             </Link>
           </Col>
-          <Col xs={1}>
+          <Col xs={4} md={1}>
             {is_owner && (
               <OptionsDropdown
                 handleEdit={handleEdit}
@@ -248,9 +248,9 @@ function Post(props) {
             {/* Likes */}
             <>
               {LikeDislike_id && LikeType == "like" ? (
-                <Col>
+                <Col xs={8} md={6}>
                   <Row>
-                    <Col xs={3}>
+                    <Col>
                       <span onClick={handleUnLike} className={styles.liked}>
                         {likes.length} <i className="fa-solid fa-thumbs-up"></i>
                       </span>
@@ -264,9 +264,9 @@ function Post(props) {
                   </Row>
                 </Col>
               ) : LikeDislike_id && LikeType == "dislike" ? (
-                <Col>
+                <Col xs={8} md={6}>
                   <Row>
-                    <Col xs={3}>
+                    <Col>
                       <span className={styles.thumbsup}>
                         {likes.length}
                         <i className="fa-regular fa-thumbs-up"></i>
@@ -284,9 +284,9 @@ function Post(props) {
                   </Row>
                 </Col>
               ) : is_owner ? (
-                <Col>
+                <Col xs={8} md={6}>
                   <Row>
-                    <Col xs={3}>
+                    <Col>
                       <OverlayTrigger
                         placement="top"
                         overlay={
@@ -315,9 +315,9 @@ function Post(props) {
                   </Row>
                 </Col>
               ) : currentUser ? (
-                <Col>
+                <Col xs={8} md={6}>
                   <Row>
-                    <Col xs={3}>
+                    <Col>
                       <span onClick={handleLike} className={styles.thumbsup}>
                         {likes.length}
                         <i className="fa-regular fa-thumbs-up"></i>
@@ -335,9 +335,9 @@ function Post(props) {
                   </Row>
                 </Col>
               ) : (
-                <Col>
+                <Col xs={8} md={6}>
                   <Row>
-                    <Col xs={3}>
+                    <Col>
                       <OverlayTrigger
                         placement="top"
                         overlay={<Tooltip>Log in to like a post</Tooltip>}
@@ -372,7 +372,7 @@ function Post(props) {
                 }}
               ></i>{" "}
               {comments.length}
-              {currentUser?.pk && !addComment && showComments && (
+              {/* {currentUser?.pk && !addComment && showComments && (
                 <span style={{ textAlign: "right" }}>
                   <Button
                     onClick={() => {
@@ -382,13 +382,13 @@ function Post(props) {
                     Add comment
                   </Button>
                 </span>
-              )}
+              )} */}
             </Col>
           </Row>
         </div>
       </Card.Footer>
       {/* Comment form */}
-      {addComment && (
+      {showComments && (
         <Form onSubmit={handleSubmit}>
           <Form.Control
             type="text"
