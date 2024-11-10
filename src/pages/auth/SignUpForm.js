@@ -70,7 +70,7 @@ const SignUpForm = () => {
               </Col>
               <Col>
                 <Form.Control
-                  type="text"
+                  type="password"
                   name="password1"
                   value={signUpFromData.password1}
                   placeholder="Enter a password"
@@ -92,7 +92,7 @@ const SignUpForm = () => {
               </Col>
               <Col>
                 <Form.Control
-                  type="text"
+                  type="password"
                   name="password2"
                   value={signUpFromData.password2}
                   placeholder="Re-enter your password"

@@ -3,12 +3,14 @@ import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Post from "./Post";
 import { Col, Form, Row } from "react-bootstrap";
 import styles from "../../styles/PostPage.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState("");
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     getTags();
@@ -35,7 +37,7 @@ const PostsPage = () => {
     return () => {
       clearTimeout(time);
     };
-  }, [searchTerm, currentTag]);
+  }, [searchTerm, currentTag, currentUser]);
 
   const getTags = async () => {
     try {
@@ -97,7 +99,6 @@ const PostsPage = () => {
               key={post.id}
               {...post}
               setPosts={setPosts}
-              showComments={false}
             />
           ))
         ) : (

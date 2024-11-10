@@ -152,7 +152,7 @@ export function Profile(props) {
         <p>{OwnerUsername}'s posts</p>
         <hr></hr>
         {posts?.length > 0 ? (
-          posts.map((post) => <Post key={post.id} {...post} />)
+          posts.map((post) => <Post key={post.id} {...post} setPosts={setPosts} />)
         ) : (
           <p>No posts yet</p>
         )}

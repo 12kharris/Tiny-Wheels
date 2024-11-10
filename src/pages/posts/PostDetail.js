@@ -24,7 +24,7 @@ const PostDetail = () => {
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
-        <Post {...post} showComments={true} />
+        <Post {...post} showComments={true} setPosts={setPost}/>
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
