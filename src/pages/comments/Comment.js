@@ -76,7 +76,7 @@ const Comment = (props) => {
 
   return (
     <Row style={{ alignItems: "center" }}>
-      <Col md={2} className={styles.lesspadding}>
+      <Col xs={6} md={2} className={styles.lesspadding}>
         <Link to={`profiles/${OwnerProfileID}`}>
           <ProfilePreview
             imageURL={ProfileImage}
@@ -85,11 +85,11 @@ const Comment = (props) => {
           />
         </Link>
       </Col>
-      <Col md={2} className={styles.lesspadding}>
+      <Col xs={6} md={2} className={styles.lesspadding}>
         <span>{Created_ago}</span>
       </Col>
 
-      <Col md={8} className={styles.lesspadding}>
+      <Col xs={10} md={8} className={styles.lesspadding}>
         {edit ? (
           <Row>
             <Col className={styles.lesspadding}>
@@ -121,7 +121,7 @@ const Comment = (props) => {
                 </Row>
               </Form>
             </Col>
-            <Col md={2}>
+            <Col xs={2} md={3}>
               <OptionsDropdown
                 handleEdit={() => {
                   setEdit(!edit);
@@ -136,7 +136,7 @@ const Comment = (props) => {
               {commentData.Content}
             </Col>
             {currentUser?.username == Username && (
-              <Col md={1} className={styles.lesspadding}>
+              <Col xs={2} className={styles.lesspadding}>
                 <OptionsDropdown
                   handleEdit={() => {
                     setEdit(!edit);

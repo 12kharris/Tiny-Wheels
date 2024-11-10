@@ -43,7 +43,6 @@ function App() {
           <Route exact path="/addpost" render={() => <AddPost />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEdit />} />
           <Route exact path="/posts/popular" render={() => <Popular />} />
-          {/* <Route exact path="/posts/:id" render={() => <PostDetail />} /> */}
           <Route
             exact
             path="/followers/:id"

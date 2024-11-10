@@ -221,7 +221,7 @@ function Post(props) {
               />
             </Link>
           </Col>
-          <Col xs={4} md={1}>
+          <Col xs={4} md={2}>
             {is_owner && (
               <OptionsDropdown
                 handleEdit={handleEdit}
@@ -372,17 +372,6 @@ function Post(props) {
                 }}
               ></i>{" "}
               {comments.length}
-              {/* {currentUser?.pk && !addComment && showComments && (
-                <span style={{ textAlign: "right" }}>
-                  <Button
-                    onClick={() => {
-                      setAddComment(!addComment);
-                    }}
-                  >
-                    Add comment
-                  </Button>
-                </span>
-              )} */}
             </Col>
           </Row>
         </div>
@@ -399,7 +388,7 @@ function Post(props) {
           ></Form.Control>
           <Form.Group>
             <Row>
-              <Col xs={8} style={{ paddingRight: "0px" }}>
+              <Col xs={9} style={{ paddingRight: "0px" }}>
                 <Form.Control
                   type="text"
                   value={commentFormData.Content}
@@ -413,12 +402,12 @@ function Post(props) {
                   </Alert>
                 ))}
               </Col>
-              <Col xs={1} style={{ paddingLeft: "0px" }}>
+              <Col style={{ paddingLeft: "0px" }}>
                 <Button variant="success" type="submit">
                   Add
                 </Button>
               </Col>
-              <Col>
+              {/* <Col>
                 <Button
                   variant="danger"
                   onClick={() => {
@@ -427,7 +416,7 @@ function Post(props) {
                 >
                   Cancel
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </Form.Group>
         </Form>
