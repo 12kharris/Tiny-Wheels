@@ -6,6 +6,8 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/AddCollectionItem.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import NotExists from "../../components/NotExists";
 
 const AddCollectionItem = () => {
   const { id } = useParams();
@@ -20,6 +22,7 @@ const AddCollectionItem = () => {
   const { name, quantity, image } = collectionItemFormData;
   const imageInput = useRef(null);
   const [errors, setErrors] = useState({});
+  const currentUser = useCurrentUser();
 
   const getSeries = async () => {
     try {
@@ -69,9 +72,10 @@ const AddCollectionItem = () => {
 
   useEffect(() => {
     getSeries();
-  }, [id, history]);
+  }, [id, history, currentUser]);
 
   return (
+    currentUser ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -111,6 +115,11 @@ const AddCollectionItem = () => {
               value={quantity}
               onChange={handleChange}
             ></Form.Control>
+            {errors.Quantity?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
           </Form.Group>
           <Form.Group>
             {image ? (
@@ -144,6 +153,9 @@ const AddCollectionItem = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
+    ) : (
+      <NotExists />
+    )
   );
 };
 
