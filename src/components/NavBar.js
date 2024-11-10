@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useCurrentUser,
   useSetCurrentUser,
@@ -12,6 +12,7 @@ import styles from "../styles/NavBar.module.css";
 function NavBar() {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
+  const [expanded, setExpanded] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -58,7 +59,7 @@ function NavBar() {
   );
 
   return (
-    <Navbar expand="md" fixed="top" variant="dark" className={styles.nav}>
+    <Navbar expand="md" expanded={expanded} onClick={() => {setExpanded(!expanded)}} fixed="top" variant="dark" className={styles.nav}>
       <NavLink to="/">
         <NavbarBrand>
           <span id="logo">Tiny Wheels</span>
