@@ -124,7 +124,7 @@ This component is re-used when a page can't be found or a user is unauthorised t
 
 
 ## Testing
-The scenarios were tested to ensure the application is secure and functions as expected.
+The following scenarios were tested to ensure the application is secure and functions as expected.
 ### Logged out user cannot create a post
 When not logged in, attempting to navigate to the addpost page returns the NotExists component instead of the form to add a post. This is a PASS.
 
@@ -159,12 +159,23 @@ The website was viewed on a large, medium and small screen to assess the usabili
 
 
 ## Deployment
+The live site was deployed suing the heroku-22 stack. The backend API for this project must be deployed first before deploying this project, otherwise the site will not function. The API project can be found here: https://github.com/12kharris/Tiny-Wheels-drf-API
 Below are the steps that were taken to deploy the application to Heroku:
-- Add a Procfile with the command web: serve -s build
+- Add a Procfile at the top level of the project.
+- Inside the Procfile, add the command web: serve -s build as shown in the below image.
+![ProcfileLocation](https://res.cloudinary.com/da2ant1dk/image/upload/v1731871984/Procfile_location_pifmrw.png)
+![ProcfileContent](https://res.cloudinary.com/da2ant1dk/image/upload/v1731871984/Procfile_content_gzrniu.png)
 - Create a new app on Heroku
-- Link the GitHub repo
+- On the "Deploy" tab on Heroku, link the GitHub repo for this project. Once successful, your page will look similar to the below.
+![LinkedRepo](https://res.cloudinary.com/da2ant1dk/image/upload/v1731872057/repo_linked_uwfwcu.png)
+- There are no config vars to add for this project
 - Git commit and push all changes
-- Deploy the branch
+- At the bottom of the "Deploy" tab, click on the "Deploy branch" button. Once successful, your page should look similar to the below:
+![DEPLOYED](https://res.cloudinary.com/da2ant1dk/image/upload/v1731870268/Heroku_deployed_ahnjfm.png)
+- Click on the "View" button at the bottom of the page to view the deployed application.
+- If this is the first time the site was deployed, its URL will not be present as the CLIENT_ORIGIN for the API and as such, the app won't function. If this is the case, add the URL of the deployed front end app as the value for the CLIENT_ORIGIN config var for the API project and redeploy the API. Once redeployed, hard refresh the page and home page content should show correctly.
+- The front end site is now ready to be used.
+
 
 ## Code Validation
 ### HTML
@@ -184,22 +195,21 @@ All files were formatted using the Prettier code formatter for consistency.
 
 ## Known Issues
 - Occasionally, the button to edit a post does not work when first clicked but often works after waiting a few seconds. This is not a serious bug and does not break the application.
-- If a user stays signed in but comes back after some time, the navbar will still show logged in status but the user is not recognised as an owner of any objects
-- The 'New' navlink always has the active style with an underline
-- On the Profile page, a user can like or dislike a post but this change is not reflected on the page unless refreshed
+- If a user stays signed in but comes back after some time, the navbar will still show logged in status but the user is not recognised as an owner of any objects.
+- The 'New' navlink always has the active style with an underline.
+- The button to edit a comment sometimes does not work when first clicked, but does when clicked for a 2nd time.
 
 
 ## Problems encountered
 - The tag was designed to be optional and can be blank in the database. However when submitting the form, an absent tag on post creation kept being turned into an empty string which was failing the post request. To get around this, new tag of "No tag" has been made and logic around it so it won't display. 
 
-- For one post, a like or dislike would add 2 to the count. I was unable to replicate this locally. The post was deleted and all posts since have not had this issue.
+- Originally, a Likes_Count and Comments_Count was used on the Post model to show the number of likes and comments on a post. This was done through using the Count() function and annotating the post with this info. However, this caused issues where the count was double what it should be on some posts. I was unable to recreate this locally and when filtering likes and comments for the post, the number of items returned was the correct amount. As such, I switched to using the length of the results array when filtering likes and comments for the given post to ensure the count is correct. This has meant there is now a small delay when liking a post for the count to update but the function is still very usable.
 
 ## Future Features
 Below are features which I would like to add to the application in the future.
-- Viewing liked posts on the profile page: The API functionality exists to see posts you ahve liked. There is no view for this currently and could be added.
+- Viewing liked posts on the profile page: The API functionality exists to see posts you have liked. There is no view for this currently and could be added.
 - Adding the tag to the display of the Post component: This was removed due to time constraints and it disrupting the layout of the Post component.
 - Private profiles: Allow a user to mark their profile as private where only users who follow them can see their posts. This would require some work creating follow requests.
-- Add loading symbols: There currently isn't any state shown when we are awaiting an API response. A loading symbol could be added in this case
 - Comment chains: Adding replies to comments possibly by using a ParentCommentID on a comment for handling replies
 - Private messaging: An ability to message a profile would be useful
 - Having a preset list of models: being able to search for a model when adding a collection item and it will prefill the form if a match is found. This could also help restrict what can be uploaded to a collection as currently someone could upload anything as a collection item.

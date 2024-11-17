@@ -40,7 +40,6 @@ function Post(props) {
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [dislikes, setDislikes] = useState([]);
-  const [addComment, setAddComment] = useState(false);
   const [commentFormData, setCommentFormData] = useState({
     Post: null,
     Content: "",
@@ -207,7 +206,6 @@ function Post(props) {
 
     try {
       const { data } = await axiosReq.post("/comments/", formData);
-      setAddComment(false);
       setComments((prevComments) => [...prevComments, data]);
       setCommentFormData({
         Post: id,
@@ -347,9 +345,9 @@ function Post(props) {
                     <Col>
                       {likesLoaded ? (
                         <span onClick={handleLike} className={styles.thumbsup}>
-                        {likes.length}
-                        <i className="fa-regular fa-thumbs-up"></i>
-                      </span>
+                          {likes.length}
+                          <i className="fa-regular fa-thumbs-up"></i>
+                        </span>
                       ) : (
                         <Spinner animation="border" variant="dark" />
                       )}
@@ -357,12 +355,12 @@ function Post(props) {
                     <Col style={{ textAlign: "left" }}>
                       {dislikesLoaded ? (
                         <span
-                        onClick={handleDislike}
-                        className={styles.thumbsdown}
-                      >
-                        {dislikes.length}
-                        <i className="fa-regular fa-thumbs-down"></i>
-                      </span>
+                          onClick={handleDislike}
+                          className={styles.thumbsdown}
+                        >
+                          {dislikes.length}
+                          <i className="fa-regular fa-thumbs-down"></i>
+                        </span>
                       ) : (
                         <Spinner animation="border" variant="dark" />
                       )}

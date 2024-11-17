@@ -154,16 +154,17 @@ export function Profile(props) {
       <Container className={styles.postsholder}>
         <p>{OwnerUsername}'s posts</p>
         <hr></hr>
-      {postsLoaded ? (
-        posts?.length > 0 ? (
-          posts.map((post) => <Post key={post.id} {...post} setPosts={setPosts} />)
+        {postsLoaded ? (
+          posts?.length > 0 ? (
+            posts.map((post) => (
+              <Post key={post.id} {...post} setPosts={setPosts} />
+            ))
+          ) : (
+            <p>No posts yet</p>
+          )
         ) : (
-          <p>No posts yet</p>
-        )
-      ) : (
-        <Spinner animation="border" variant="light" />
-      )}
-        {}
+          <Spinner animation="border" variant="light" />
+        )}
       </Container>
     </>
   );

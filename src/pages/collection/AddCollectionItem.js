@@ -4,7 +4,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import { axiosRes } from "../../api/axiosDefaults";
 import styles from "../../styles/AddCollectionItem.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import NotExists from "../../components/NotExists";
@@ -74,8 +74,7 @@ const AddCollectionItem = () => {
     getSeries();
   }, [id, history, currentUser]);
 
-  return (
-    currentUser ? (
+  return currentUser ? (
     <Row>
       <Col md={1} lg={2}></Col>
       <Col>
@@ -153,9 +152,8 @@ const AddCollectionItem = () => {
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>
-    ) : (
-      <NotExists />
-    )
+  ) : (
+    <NotExists />
   );
 };
 

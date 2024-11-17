@@ -25,22 +25,22 @@ const Popular = () => {
     <Row>
       <Col md={1} lg={2}></Col>
       <Col className={styles.posts}>
-      {postsLoaded ? (
-        posts?.length > 0 ? (
-          posts.map((post) => (
-            <Post
-              key={post.id}
-              {...post}
-              setPosts={setPosts}
-              showComments={false}
-            />
-          ))
+        {postsLoaded ? (
+          posts?.length > 0 ? (
+            posts.map((post) => (
+              <Post
+                key={post.id}
+                {...post}
+                setPosts={setPosts}
+                showComments={false}
+              />
+            ))
+          ) : (
+            <p>No Results</p>
+          )
         ) : (
-          <p>No Results</p>
-        )
-      ) : (
-        <Spinner animation="border" variant="light" />
-      )}
+          <Spinner animation="border" variant="light" />
+        )}
       </Col>
       <Col md={1} lg={2}></Col>
     </Row>

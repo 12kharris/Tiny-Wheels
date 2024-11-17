@@ -10,7 +10,6 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import PostsPage from "./pages/posts/PostsPage";
 import FollowingPostsPage from "./pages/posts/FollowingPostsPage";
 import AddPost from "./pages/posts/AddPost";
-import PostDetail from "./pages/posts/PostDetail";
 import PostEdit from "./pages/posts/PostEdit";
 import CollectionPage from "./pages/collection/CollectionPage";
 import AddCollectionItem from "./pages/collection/AddCollectionItem";
