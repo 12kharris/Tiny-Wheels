@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Post from "../posts/Post";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -28,6 +28,7 @@ export function Profile(props) {
   const history = useHistory();
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [postsLoaded, setPostsLoaded] = useState(false);
 
   useEffect(() => {
     fetchPosts();
@@ -36,12 +37,14 @@ export function Profile(props) {
 
   const fetchPosts = async () => {
     try {
+      setPostsLoaded(false);
       if (OwnerUsername) {
         const { data } = await axiosReq.get(
           `/posts/?Profile__User__username=${OwnerUsername}&Profile__FollowedProfile__FollowingProfile=`
         );
         setPosts(data);
       }
+      setPostsLoaded(true);
     } catch (err) {}
   };
 
@@ -151,11 +154,16 @@ export function Profile(props) {
       <Container className={styles.postsholder}>
         <p>{OwnerUsername}'s posts</p>
         <hr></hr>
-        {posts?.length > 0 ? (
+      {postsLoaded ? (
+        posts?.length > 0 ? (
           posts.map((post) => <Post key={post.id} {...post} setPosts={setPosts} />)
         ) : (
           <p>No posts yet</p>
-        )}
+        )
+      ) : (
+        <Spinner animation="border" variant="light" />
+      )}
+        {}
       </Container>
     </>
   );

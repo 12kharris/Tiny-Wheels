@@ -12,6 +12,7 @@ import {
   Form,
   OverlayTrigger,
   Row,
+  Spinner,
   Tooltip,
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
@@ -45,6 +46,9 @@ function Post(props) {
     Content: "",
   });
   const [showComments, setShowComments] = useState(false);
+  const [likesLoaded, setLikesLoaded] = useState(false);
+  const [dislikesLoaded, setDislikesLoaded] = useState(false);
+  const [commentsLoaded, setCommentsLoaded] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -62,8 +66,10 @@ function Post(props) {
   const getComments = async () => {
     if (id) {
       try {
+        setCommentsLoaded(false);
         const { data } = await axiosRes.get(`/comments/?Post=${id}`);
         setComments(data);
+        setCommentsLoaded(true);
       } catch (err) {}
     }
   };
@@ -71,8 +77,10 @@ function Post(props) {
   const getLikes = async () => {
     if (id) {
       try {
+        setLikesLoaded(false);
         const { data } = await axiosRes.get(`/likes/?Post=${id}&IsLike=true`);
         setLikes(data);
+        setLikesLoaded(true);
       } catch (err) {}
     }
   };
@@ -80,8 +88,10 @@ function Post(props) {
   const getDislikes = async () => {
     if (id) {
       try {
+        setDislikesLoaded(false);
         const { data } = await axiosRes.get(`/likes/?Post=${id}&IsLike=false`);
         setDislikes(data);
+        setDislikesLoaded(true);
       } catch (err) {}
     }
   };
@@ -251,15 +261,24 @@ function Post(props) {
                 <Col xs={8} md={6}>
                   <Row>
                     <Col>
-                      <span onClick={handleUnLike} className={styles.liked}>
-                        {likes.length} <i className="fa-solid fa-thumbs-up"></i>
-                      </span>
+                      {likesLoaded ? (
+                        <span onClick={handleUnLike} className={styles.liked}>
+                          {likes.length}{" "}
+                          <i className="fa-solid fa-thumbs-up"></i>
+                        </span>
+                      ) : (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </Col>
                     <Col style={{ textAlign: "left" }}>
-                      <span className={styles.thumbsdown}>
-                        {dislikes.length}{" "}
-                        <i className="fa-regular fa-thumbs-down"></i>
-                      </span>
+                      {dislikesLoaded ? (
+                        <span className={styles.thumbsdown}>
+                          {dislikes.length}{" "}
+                          <i className="fa-regular fa-thumbs-down"></i>
+                        </span>
+                      ) : (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </Col>
                   </Row>
                 </Col>
@@ -267,19 +286,27 @@ function Post(props) {
                 <Col xs={8} md={6}>
                   <Row>
                     <Col>
-                      <span className={styles.thumbsup}>
-                        {likes.length}
-                        <i className="fa-regular fa-thumbs-up"></i>
-                      </span>
+                      {likesLoaded ? (
+                        <span className={styles.thumbsup}>
+                          {likes.length}
+                          <i className="fa-regular fa-thumbs-up"></i>
+                        </span>
+                      ) : (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </Col>
                     <Col style={{ textAlign: "left" }}>
-                      <span
-                        onClick={handleUnDislike}
-                        className={styles.disliked}
-                      >
-                        {dislikes.length}{" "}
-                        <i className="fa-solid fa-thumbs-down"></i>
-                      </span>
+                      {dislikesLoaded ? (
+                        <span
+                          onClick={handleUnDislike}
+                          className={styles.disliked}
+                        >
+                          {dislikes.length}{" "}
+                          <i className="fa-solid fa-thumbs-down"></i>
+                        </span>
+                      ) : (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </Col>
                   </Row>
                 </Col>
@@ -318,19 +345,27 @@ function Post(props) {
                 <Col xs={8} md={6}>
                   <Row>
                     <Col>
-                      <span onClick={handleLike} className={styles.thumbsup}>
+                      {likesLoaded ? (
+                        <span onClick={handleLike} className={styles.thumbsup}>
                         {likes.length}
                         <i className="fa-regular fa-thumbs-up"></i>
                       </span>
+                      ) : (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </Col>
                     <Col style={{ textAlign: "left" }}>
-                      <span
+                      {dislikesLoaded ? (
+                        <span
                         onClick={handleDislike}
                         className={styles.thumbsdown}
                       >
                         {dislikes.length}
                         <i className="fa-regular fa-thumbs-down"></i>
                       </span>
+                      ) : (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </Col>
                   </Row>
                 </Col>
@@ -407,16 +442,6 @@ function Post(props) {
                   Add
                 </Button>
               </Col>
-              {/* <Col>
-                <Button
-                  variant="danger"
-                  onClick={() => {
-                    setAddComment(false);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Col> */}
             </Row>
           </Form.Group>
         </Form>
@@ -424,13 +449,18 @@ function Post(props) {
       {/* Comments */}
       {showComments && (
         <Container>
-          {comments.length > 0 ? (
-            comments.map((c) => (
-              <Comment key={c.id} {...c} getComments={getComments} />
-            ))
+          {commentsLoaded ? (
+            comments.length > 0 ? (
+              comments.map((c) => (
+                <Comment key={c.id} {...c} getComments={getComments} />
+              ))
+            ) : (
+              <p>No Comments</p>
+            )
           ) : (
-            <p>No Comments</p>
+            <Spinner animation="border" variant="dark" />
           )}
+          {}
         </Container>
       )}
       <hr></hr>

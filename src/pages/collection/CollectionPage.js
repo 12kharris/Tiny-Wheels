@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import styles from "../../styles/CollectionPage.module.css";
 
 const CollectionPage = () => {
   const { id } = useParams();
   const [collection, setCollection] = useState({});
   const [collectionItems, setCollectionItems] = useState(null);
+  const [collectionLoaded, setCollectionLoaded] = useState(false);
+  const [collectionItemsLoaded, setCollectionItemsLoaded] = useState(false);
   const currentUser = useCurrentUser();
 
   useEffect(() => {
@@ -19,78 +21,94 @@ const CollectionPage = () => {
   const getCollection = async () => {
     try {
       if (id) {
+        setCollectionLoaded(false);
         const { data } = await axiosRes.get(`/collections/?id=${id}`);
         setCollection(data);
+        setCollectionLoaded(true);
       }
     } catch (err) {}
   };
 
   const getCollectionItems = async () => {
     try {
+      setCollectionItemsLoaded(false);
       if (id && !collectionItems?.length) {
         const { data } = await axiosRes.get(`/collections/${id}/`);
         setCollectionItems(data);
+        setCollectionItemsLoaded(true);
       }
     } catch (err) {}
   };
 
   return (
     <>
-      <Row className={styles.banner}>
-        <Col className="align-middle">
-          <h3>{collection[0]?.Owner}'s collection</h3>
-        </Col>
-        <Col className="align-middle">Views: {collection[0]?.Views}</Col>
-        <Col className="align-middle">{collection[0]?.items_count} items</Col>
-        {collection[0]?.is_owner && (
+      {collectionLoaded ? (
+        <Row className={styles.banner}>
           <Col className="align-middle">
-            <Link to={`/collection/${id}/add`}>
-              <Button>Add Item</Button>
-            </Link>
+            <h3>{collection[0]?.Owner}'s collection</h3>
           </Col>
-        )}
-      </Row>
-
-      {collectionItems?.length > 0 ? (
-        <Row className={styles.itemholder}>
-          {collectionItems.map((item) => (
-            <Col xs={12} md={6} lg={2} key={item.id} className={styles.item}>
-              <Card className={styles.card}>
-                <Card.Title>
-                  <Row>
-                    <Col className={styles.header_item}>
-                      <h5>{item.BrandName}</h5>
-                      <p className={styles.series}>{item.SeriesName}</p>
-                    </Col>
-                    <Col
-                      xs={2}
-                      className={`${styles.header_item} ${styles.quantity}`}
-                    >
-                      x{item.Quantity}
-                    </Col>
-                  </Row>
-                </Card.Title>
-                <Card.Body style={{ padding: "0" }}>
-                  <div className={styles.img_holder}>
-                    <Link to={`/collection/item/${item.id}`}>
-                      <Card.Img
-                        src={item.Image}
-                        className={styles.img}
-                        alt="collection item image"
-                      ></Card.Img>
-                    </Link>
-                  </div>
-                  <span>
-                    <p>{item.Name}</p>
-                  </span>
-                </Card.Body>
-              </Card>
+          <Col className="align-middle">Views: {collection[0]?.Views}</Col>
+          <Col className="align-middle">{collection[0]?.items_count} items</Col>
+          {collection[0]?.is_owner && (
+            <Col className="align-middle">
+              <Link to={`/collection/${id}/add`}>
+                <Button>Add Item</Button>
+              </Link>
             </Col>
-          ))}
+          )}
         </Row>
       ) : (
-        <p className={styles.noitems}>No items</p>
+        <Row>
+          <Col>
+            <Spinner animation="border" variant="light" />
+          </Col>
+        </Row>
       )}
+      {collectionItemsLoaded ? (
+        collectionItems?.length > 0 ? (
+          <Row className={styles.itemholder}>
+            {collectionItems.map((item) => (
+              <Col xs={12} md={6} lg={2} key={item.id} className={styles.item}>
+                <Card className={styles.card}>
+                  <Card.Title>
+                    <Row>
+                      <Col className={styles.header_item}>
+                        <h5>{item.BrandName}</h5>
+                        <p className={styles.series}>{item.SeriesName}</p>
+                      </Col>
+                      <Col
+                        xs={2}
+                        className={`${styles.header_item} ${styles.quantity}`}
+                      >
+                        x{item.Quantity}
+                      </Col>
+                    </Row>
+                  </Card.Title>
+                  <Card.Body style={{ padding: "0" }}>
+                    <div className={styles.img_holder}>
+                      <Link to={`/collection/item/${item.id}`}>
+                        <Card.Img
+                          src={item.Image}
+                          className={styles.img}
+                          alt="collection item image"
+                        ></Card.Img>
+                      </Link>
+                    </div>
+                    <span>
+                      <p>{item.Name}</p>
+                    </span>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <p className={styles.noitems}>No items</p>
+        )
+      ) : (
+        <Spinner animation="border" variant="light" />
+      )}
+      {}
     </>
   );
 };

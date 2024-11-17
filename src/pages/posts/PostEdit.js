@@ -3,7 +3,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { axiosReq } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Alert, Button, Col, Form, Image, Row } from "react-bootstrap";
 import styles from "../../styles/PostEdit.module.css";
@@ -58,8 +58,8 @@ const PostEdit = () => {
     formData.append("Tag", postData.Tag);
 
     try {
-      await axiosReq.put(`/posts/${id}/`, formData);
-      history.push(`/posts/${id}`);
+      await axiosRes.put(`/posts/${id}/`, formData);
+      history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
     }
