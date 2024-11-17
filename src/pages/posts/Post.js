@@ -412,7 +412,7 @@ function Post(props) {
         </div>
       </Card.Footer>
       {/* Comment form */}
-      {showComments && (
+      {showComments && currentUser && (
         <Form onSubmit={handleSubmit}>
           <Form.Control
             type="text"
