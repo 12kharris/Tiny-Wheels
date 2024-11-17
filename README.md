@@ -1,6 +1,6 @@
 
 # Tiny Wheels React.js Front-End
-Tiny wheels is a website where users can view posts and diecast vehicle collections of other users. The aim of this project was to create site for diecast vehicle enthusiasts who wish to share their enjoyment of the hobby with others. This half of the project is the front end, user facing website. The site allows anyone to view posts made by other users, see a user's profile and see a user's collection. Logged in users can create posts, like posts and comment n posts. They can also add items to their vehicle collections and follow other user's profiles.
+Tiny wheels is a website where users can view posts and diecast vehicle collections of other users. The aim of this project was to create site for diecast vehicle enthusiasts who wish to share their enjoyment of the hobby with others. This project set out to create a platform for collectors to share their collections with others, share their thoughts or experiences through posts and interact with other users thorugh comments and likes on posts. This half of the project is the front end, user facing website. The site allows anyone to view posts made by other users, see a user's profile and see a user's collection. Logged in users can create posts, like posts and comment on posts. They can also add items to their vehicle collections and follow other user's profiles.
 
 The live site can be found at https://tiny-wheels-1dcc9b8480fe.herokuapp.com/
 
@@ -31,7 +31,7 @@ Before development, planning of the look of the application and the key pages wa
 ![Posts](https://res.cloudinary.com/da2ant1dk/image/upload/v1728850581/media/images/oeu9mchftuclszjo6mrj.png)
 ![Collection](https://res.cloudinary.com/da2ant1dk/image/upload/v1728850580/media/images/pclavllqtljtl0gxnrte.png)
 
-The dark navy colour was chosen as the theme as it has a clean look and is also sophisticated, indicating that this is a serious platform.
+The dark navy colour was chosen as the theme as it has a clean look and is also sophisticated, indicating that this is a platform for adult collectors. The font to be used was Catamaran as this is a sans-serif font which looks modern but also slightly light-hearted which adds to a welcoming and friendly environment for users to interact in. This font will be used throughout the whole application for consistency.
 
 
 ### User Stories
